@@ -2,6 +2,8 @@
 
 body {
     margin: 0;
+    padding: 0;
+    width: 100%;
     font-family: 'Poppins', Arial, sans-serif;
     background-color: #f6f7fb;
     color: #222;
@@ -15,19 +17,41 @@ header {
     color: white;
     padding: 24px 16px;
     text-align: center;
+    box-sizing: border-box;
 }
 
 header h1 {
     margin: 0;
-    font-size: 70px;
+    font-size: clamp(42px, 9vw, 96px);
     font-family: 'Playfair Display', serif;
     font-weight: bold;
+    white-space: nowrap;
+    line-height: 1;
 }
 
-header p {
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 40px;
+    
+}
+
+nav li{
+    display: inline;
+    margin: 20px;
+}
+
+header a {
     margin-top: 8px;
-    font-size: 16px;
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
     opacity: 0.9;
+}
+
+header a:hover{
+    text-decoration: underline;
+    font-weight: bold;
 }
 
 .contenedor-principal {
@@ -40,14 +64,17 @@ header p {
 .busqueda {
     display: flex;
     justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
     gap: 10px;
-    margin-bottom: 25px;
-    flex-wrap: wrap;
+    margin: 0 auto 25px auto;
+    flex-wrap: nowrap;
 }
 
 .busqueda input {
-    width: 320px;
-    max-width: 100%;
+    flex: 1;
+    min-width: 0;
     padding: 10px 14px;
     font-size: 16px;
     border: 1px solid #c9ced8;
@@ -136,6 +163,7 @@ header p {
 
 .volver {
     margin-bottom: 30px;
+    font-size: 20px;
     font-weight: 600;
 }
 
@@ -201,19 +229,46 @@ footer {
     color: white;
     text-align: center;
     padding: 15px;
+    box-sizing: border-box;
 }
 
 .footer-content {
     display: flex;
     justify-content: space-around;
+    gap: 24px;
+    flex-wrap: wrap;
 }
 
 .footer-content h3{
     font-family: 'Playfair Display', serif;
+    
 }
 
 @media (max-width: 768px) {
 
+    .busqueda {
+        flex-direction: column;
+        align-items: center;
+        width: 90%;
+        max-width: 420px;
+        margin: 0 auto 25px auto;
+        gap: 12px;
+    }
+
+    .busqueda input {
+        width: 100%;
+        flex: none;
+        box-sizing: border-box;
+    }
+
+    .busqueda button {
+        flex-shrink: 0;
+    }
+
+    .busqueda button:first-of-type {
+        margin-right: 8px;
+    }
+    
     .resultados {
         grid-template-columns: repeat(1, 1fr);
     }
