@@ -1,0 +1,240 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Poppins', Arial, sans-serif;
+    background-color: #f6f7fb;
+    color: #222;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background-color: #1f2a44;
+    color: white;
+    padding: 24px 16px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 70px;
+    font-family: 'Playfair Display', serif;
+    font-weight: bold;
+}
+
+header p {
+    margin-top: 8px;
+    font-size: 16px;
+    opacity: 0.9;
+}
+
+.contenedor-principal {
+    width: 95%;
+    max-width: 1500px;
+    margin: 30px auto;
+    flex: 1;
+}
+
+.busqueda {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.busqueda input {
+    width: 320px;
+    max-width: 100%;
+    padding: 10px 14px;
+    font-size: 16px;
+    border: 1px solid #c9ced8;
+    border-radius: 8px;
+    outline: none;
+}
+
+.busqueda input:focus {
+    border: #3b82f6;
+}
+
+.busqueda button {
+    padding: 10px 16px;
+    font-size: 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: #1f2a44;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.busqueda button:hover {
+    background-color: #314163;
+}
+
+.mensajes {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.mensajes h2{
+    font-family: 'Playfair Display', serif;
+    font-size: 35px;
+}
+
+.mensaje {
+    color: #c62828;
+    font-weight: bold;
+}
+
+.resultados {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 40px;
+    margin-bottom: 40px;
+    gap: 24px;
+    justify-items: center;
+}
+
+.tarjeta-artista {
+    width: 210px;
+    background-color: white;
+    border-radius: 14px;
+    padding: 14px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.tarjeta-artista:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+}
+
+.tarjeta-artista img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    background: lightgray;
+}
+
+.tarjeta-artista h3 {
+    margin: 8px 0;
+    font-size: 18px;
+}
+
+.tarjeta-artista p {
+    margin: 6px 0;
+    font-size: 14px;
+    color: #444;
+}
+
+.volver {
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+.volver a {
+    text-decoration: none;
+    color: #1f2a44;
+    font-weight: bold;
+}
+
+.volver a:hover {
+    text-decoration: underline;
+    color: lightslategray;
+}
+
+.detalle-artista {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    flex-wrap: wrap;
+}
+
+.detalle-imagen img {
+    width: 260px;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 16px;
+    background: #e9edf5;
+}
+
+.detalle-info {
+    flex: 1;
+    min-width: 260px;
+}
+
+.detalle-info h2 {
+    margin-top: 0;
+    font-size: 32px;
+    color: #1f2a44;
+}
+
+.detalle-info p {
+    margin: 10px 0;
+    line-height: 1.5;
+}
+
+.biografia {
+    margin-top: 20px;
+    padding-top: 12px;
+    border-top: 1px solid #ddd;
+}
+
+.biografia h3 {
+    margin-bottom: 10px;
+    color: #1f2a44;
+}
+
+footer {
+    background: #1f2a44;
+    color: white;
+    text-align: center;
+    padding: 15px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+}
+
+.footer-content h3{
+    font-family: 'Playfair Display', serif;
+}
+
+@media (max-width: 768px) {
+
+    .resultados {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .detalle-artista {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .detalle-info h2 {
+        font-size: 26px;
+    }
+
+    .tarjeta-artista {
+        width: 90%;
+        max-width: 260px;
+    }
+
+    .tarjeta-artista img {
+        width: 100%;
+        height: 220px;
+    }
+}

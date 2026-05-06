@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es" ng-app="miApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Información del artista - Sinfonía Urbana</title>
+
+    <link rel="stylesheet" href="css/styles.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="js/app.js"></script>
+</head>
+
+<body ng-controller="DetalleArtistaController" ng-init="cargarDetalle()">
+
+    <header>
+        <h1>Sinfonía Urbana</h1>
+        <p>Información del artista</p>
+    </header>
+
+    <main class="contenedor-principal detalle-artista-container">
+
+        <section class="volver">
+            <a href="artistas.html">← Volver a artistas</a>
+        </section>
+
+        <section class="mensajes">
+            <p class="mensaje" ng-if="mensaje">{{ mensaje }}</p>
+            <p ng-if="cargando">Cargando información del artista...</p>
+        </section>
+
+        <section class="detalle-artista" ng-if="artista">
+            <div class="detalle-imagen">
+                    <img ng-src="img/{{ artista.id }}.jpg" alt="{{ artista.nombre }}">
+            </div>
+
+            <div class="detalle-info">
+                <h2>{{ artista.nombre }}</h2>
+
+                <p><strong>País:</strong> {{ artista.pais }}</p>
+                <p><strong>Edad:</strong> {{ artista.edad }}</p>
+                <p><strong>Género:</strong> {{ artista.genero }}</p>
+                <p><strong>Productor:</strong> {{ artista.productor }}</p>
+                <p><strong>Oyentes mensuales:</strong> {{ artista.oyentesMensuales }}</p>
+
+                <div class="biografia">
+                    <h3>Biografía</h3>
+                    <p>{{ artista.biografia }}</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+     <footer>
+        <div class="footer-content">
+            <div>
+                <h3>Proyecto</h3>
+                <hr>
+                <p>Sinfonía Urbana</p>
+            </div>
+
+            <div>
+                <h3>Contacto</h3>
+                <hr>
+                <p>yaiza5arias@gmail.com</p>
+                <p>cristinalopezdelapuente@gmail.com</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

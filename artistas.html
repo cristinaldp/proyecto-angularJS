@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es" ng-app="miApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artistas - Sinfonía Urbana</title>
+
+    <link rel="stylesheet" href="css/styles.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="js/app.js"></script>
+
+</head>
+<body ng-controller="ArtistaController" ng-init="cargarAleatorios()">
+
+    <header>
+        <h1>Sinfonía Urbana</h1>
+        <p>Artistas</p>
+    </header>
+
+    <main class="contenedor-principal">
+        <section class="busqueda">
+            <input
+                type="text"
+                ng-model="busqueda"
+                placeholder="¿Qué artista quieres buscar?"
+                ng-keypress="$event.which === 13 && buscarArtistas()"
+            >
+            <button ng-click="buscarArtistas()">Buscar</button>
+            <button ng-click="cargarAleatorios()">Mostrar aleatorios</button>
+        </section>
+
+        <section class="mensajes">
+            <p class="mensaje" ng-if="mensaje">{{ mensaje }}</p>
+            <h2 class="titulo-artistas">Artistas</h2>
+            <hr>
+        </section>
+
+        <section class="resultados" ng-if="artistas.length > 0">
+
+            <div class="tarjeta-artista"
+                 ng-repeat="artista in artistas track by artista.id"
+                 ng-click="verArtista(artista.id)">
+
+                <img ng-src="img/{{ artista.id }}.jpg" alt="{{ artista.nombre }}">
+
+                <h3>{{ artista.nombre }}</h3>
+                <p><strong>País:</strong> {{ artista.pais }}</p>
+                <p><strong>Género:</strong> {{ artista.genero }}</p>
+            </div>
+        </section>
+
+        <section ng-if="artistas.length === 0 && !cargando && !mensaje">
+            <p>No hay artistas para mostrar.</p>
+        </section>
+    </main>
+    <footer>
+        <div class="footer-content">
+            <div>
+                <h3>Proyecto</h3>
+                <hr>
+                <p>Sinfonía Urbana</p>
+            </div>
+
+            <div>
+                <h3>Contacto</h3>
+                <hr>
+                <p>yaiza5arias@gmail.com</p>
+                <p>cristinalopezdelapuente@gmail.com</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
