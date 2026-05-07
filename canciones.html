@@ -19,7 +19,7 @@
             <ul>
                 <li><a href="./artistas.html">Artistas</a></li>
                 <li><a href="./albumes.html">Álbumes</a></li>
-                <li><a href="./canciones.html">Canciones</a></li>
+                <li><a href="./canciones.html" class="active">Canciones</a></li>
                 <li><a href="./top.html">Top global</a></li>
                 <li><a href="./novedades.html">Novedades</a></li>
                 <li><a href="./generos.html">Géneros</a></li>
@@ -46,9 +46,9 @@
 
         <section class="resultados" ng-if="canciones.length > 0">
 
-            <div class="tarjeta-artista"
+            <div class="tarjeta-cancion"
                  ng-repeat="cancion in canciones track by cancion.id"
-                 ng-click="">
+                 ng-click="abrirVideo(cancion)">
 
                 <h3>{{ cancion.titulo }}</h3>
                 <p><strong>Reproducciones:</strong> {{ cancion.reproducciones }}</p>

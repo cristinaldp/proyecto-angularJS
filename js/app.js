@@ -72,9 +72,11 @@ app.controller("ArtistaController", function ($scope, $http) {
 
 
 app.controller("DetalleArtistaController", function ($scope, $http) {
-    var URL_API = "http://localhost:8085/api/artistas";
+    var URL_ARTISTAS = "http://localhost:8085/api/artistas";
+    var URL_CANCIONES = "http://localhost:8085/api/canciones";
 
     $scope.artista = null;
+    $scope.canciones = [];
     $scope.mensaje = "";
     $scope.cargando = false;
 
@@ -90,9 +92,10 @@ app.controller("DetalleArtistaController", function ($scope, $http) {
         $scope.cargando = true;
         $scope.mensaje = "";
 
-        $http.get(URL_API + "/" + id)
+        $http.get(URL_ARTISTAS + "/" + id)
         .then(function (response) {
             $scope.artista = response.data;
+            $scope.cargarCancionesArtista($scope.artista.id);
         })
         .catch(function (error) {
             console.error("Error al cargar el detalle del artista:", error);
@@ -101,6 +104,26 @@ app.controller("DetalleArtistaController", function ($scope, $http) {
         .finally(function () {
             $scope.cargando = false;
         });
+    };
+
+    $scope.cargarCancionesArtista = function (idArtista) {
+        $http.get(URL_CANCIONES + "/artista/" + idArtista)
+            .then(function (response) {
+                $scope.canciones = response.data;
+            })
+            .catch(function (error) {
+                console.error("Error al cargar canciones del artista:", error);
+                $scope.canciones = [];
+                $scope.mensaje = "No se pudieron cargar las canciones del artista.";
+            });
+    };
+
+    $scope.abrirVideo = function (cancion) {
+        if (cancion.url) {
+            window.open(cancion.url, "_blank");
+        } else {
+            $scope.mensaje = "Esta canción no tiene vídeo disponible.";
+        }
     };
 });
 
@@ -167,5 +190,13 @@ app.controller("CancionController", function ($scope, $http) {
         .finally(function () {
             $scope.cargando = false;
         });
+    };
+
+    $scope.abrirVideo = function (cancion) {
+        if (cancion.url) {
+            window.open(cancion.url, "_blank");
+        } else {
+            $scope.mensaje = "Esta canción no tiene vídeo disponible.";
+        }
     };
 });

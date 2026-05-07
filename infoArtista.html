@@ -58,6 +58,25 @@
                 </div>
             </div>
         </section>
+         <section class="mensajes">
+            <p class="mensaje" ng-if="mensaje">{{ mensaje }}</p>
+            <h2 class="titulo-canciones">Top Canciones</h2>
+            <hr>
+        </section>
+        <section class="resultados" ng-if="canciones.length > 0">
+
+            <div class="tarjeta-cancion"
+                 ng-repeat="cancion in canciones track by cancion.id"
+                 ng-click="abrirVideo(cancion)">
+
+                <h3>{{ cancion.titulo }}</h3>
+                <p><strong>Reproducciones:</strong> {{ cancion.reproducciones }}</p>
+            </div>
+        </section>
+
+        <section ng-if="canciones.length === 0 && !cargando && !mensaje">
+            <p>No hay canciones disponibles para este artista.</p>
+        </section>
 
     </main>
      <footer>

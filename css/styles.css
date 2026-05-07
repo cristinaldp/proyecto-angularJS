@@ -41,6 +41,13 @@ nav li{
     margin: 20px;
 }
 
+nav a.active {
+    font-weight: 800;
+    font-size: 24px;
+    border-bottom: 2px solid white;
+    padding-bottom: 4px;
+}
+
 header a {
     margin-top: 8px;
     color: white;
@@ -50,7 +57,6 @@ header a {
 }
 
 header a:hover{
-    text-decoration: underline;
     font-weight: bold;
 }
 
@@ -66,7 +72,7 @@ header a:hover{
     justify-content: center;
     align-items: center;
     width: 100%;
-    max-width: 800px;
+    max-width: 825px;
     gap: 10px;
     margin: 0 auto 25px auto;
     flex-wrap: nowrap;
@@ -161,8 +167,36 @@ header a:hover{
     color: #444;
 }
 
+.tarjeta-cancion {
+    width: 210px;
+    background-color: white;
+    border: 3px solid #3b82f6;
+    border-radius: 14px;
+    padding: 14px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    cursor: pointer;
+}
+
+.tarjeta-cancion h3 {
+    margin: 8px 0;
+    font-size: 18px;
+}
+
+.tarjeta-cancion p {
+    margin: 6px 0;
+    font-size: 14px;
+    color: #444;
+}
+
+.tarjeta-cancion:hover {
+    background-color: lightsteelblue;
+}
+
+
 .volver {
-    margin-bottom: 30px;
+    margin-bottom: 24px;
+    padding-left: 16px;
     font-size: 20px;
     font-weight: 600;
 }
@@ -268,7 +302,12 @@ footer {
     .busqueda button:first-of-type {
         margin-right: 8px;
     }
-    
+
+    .volver {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
     .resultados {
         grid-template-columns: repeat(1, 1fr);
     }
