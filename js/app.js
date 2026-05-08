@@ -196,6 +196,32 @@ app.controller("AlbumController", function ($scope, $http) {
         window.location.href = "infoArtista.html?id=" + idArtista;
     };
 
+    $scope.cargarNovedades = function () {
+        $scope.cargando = true;
+        $scope.mensaje = "";
+
+        $http.get(URL_ALBUMES + "/novedades", {
+            params: {
+                limit: 6
+            }
+        })
+        .then(function (response) {
+            $scope.albumes = response.data;
+
+            if ($scope.albumes.length === 0) {
+                $scope.mensaje = "No se han encontrado novedades.";
+            }
+        })
+        .catch(function (error) {
+            console.error("Error al cargar novedades:", error);
+            $scope.albumes = [];
+            $scope.mensaje = "Error al cargar las novedades.";
+        })
+        .finally(function () {
+            $scope.cargando = false;
+        });
+    };
+
 });
 
 app.controller("CancionController", function ($scope, $http) {

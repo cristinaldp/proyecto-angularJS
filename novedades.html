@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Albumes - Sinfonía Urbana</title>
+    <title>Novedades - Sinfonía Urbana</title>
 
     <link rel="stylesheet" href="css/styles.css">
 
@@ -11,17 +11,17 @@
     <script src="js/app.js"></script>
 
 </head>
-<body ng-controller="AlbumController" ng-init="cargarAleatorios()">
+<body ng-controller="AlbumController" ng-init="cargarNovedades()">
 
     <header>
         <h1>Sinfonía Urbana</h1>
         <nav>
             <ul>
                 <li><a href="./artistas.html">Artistas</a></li>
-                <li><a href="./albumes.html" class="active">Álbumes</a></li>
+                <li><a href="./albumes.html">Álbumes</a></li>
                 <li><a href="./canciones.html">Canciones</a></li>
                 <li><a href="./top.html">Top global</a></li>
-                <li><a href="./novedades.html">Novedades</a></li>
+                <li><a href="./novedades.html" class="active">Novedades</a></li>
                 <li><a href="./generos.html">Géneros</a></li>
             </ul>
         </nav>
@@ -36,13 +36,12 @@
                 ng-keypress="$event.which === 13 && buscarAlbumes()"
             >
             <button ng-click="buscarAlbumes()">Buscar</button>
-            <button ng-click="cargarAleatorios()">Mostrar aleatorios</button>
         </section>
 
         <section class="mensajes">
             <p class="mensaje" ng-if="mensaje">{{ mensaje }}</p>
-            <h2 class="titulo-albumes">Álbumes</h2>
-            <br>
+            <h2 class="titulo-canciones">Novedades</h2>
+            <h4 class="titulo-canciones">Últimos lanzamientos</h4>
             <hr>
         </section>
 
@@ -61,6 +60,11 @@
             
 
             <h3>{{ album.titulo }}</h3>
+
+            <p class="fecha-lanzamiento">
+                Fue estrenado el {{ album.ano | date:'dd/MM/yyyy'}}
+            </p>
+
             <button class="btn-artista"
                 ng-click="verArtista(album.idArtista)">
                 Más sobre {{ album.nombreArtista }}
