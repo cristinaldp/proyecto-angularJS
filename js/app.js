@@ -270,4 +270,30 @@ app.controller("CancionController", function ($scope, $http) {
             $scope.mensaje = "Esta canción no tiene vídeo disponible.";
         }
     };
+
+    $scope.cargarTopCanciones = function () {
+        $scope.cargando = true;
+        $scope.mensaje = "";
+
+        $http.get(URL_API + "/top", {
+            params: {
+                limit: 5
+            }
+        })
+        .then(function (response) {
+            $scope.canciones = response.data;
+
+            if ($scope.canciones.length === 0) {
+                $scope.mensaje = "No se encontraron canciones en el top global.";
+            }
+        })
+        .catch(function (error) {
+            console.error("Error al cargar el top global:", error);
+            $scope.canciones = [];
+            $scope.mensaje = "Error al cargar el top global.";
+        })
+        .finally(function () {
+            $scope.cargando = false;
+        });
+    };
 });
