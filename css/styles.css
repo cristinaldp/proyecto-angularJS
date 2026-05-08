@@ -295,6 +295,7 @@ footer {
     width: 240px;
     height: 220px;
     margin: 0 auto 18px;
+    cursor: pointer;
 }
 
 .disco {
@@ -310,6 +311,11 @@ footer {
         radial-gradient(circle at center, #444 0 10px, #111 10px 20px, #222 20px 100%),
         repeating-radial-gradient(circle, #111 0 2px, #1a1a1a 2px 4px);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    transition: right 0.4s ease, transform 0.4s ease;
+}
+
+.vinilo-wrapper:hover .disco {
+    right: -30px;
 }
 
 .disco::after {
