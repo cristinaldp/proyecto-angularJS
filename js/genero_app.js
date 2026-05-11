@@ -1,0 +1,76 @@
+var genero_app = angular.module("miApp", []);
+
+genero_app.controller("GeneroController", function ($scope, $http) {
+    var URL_GENEROS = "http://localhost:8085/api/generos";
+    var URL_ARTISTAS = "http://localhost:8085/api/artistas";
+    var URL_ALBUMES = "http://localhost:8085/api/albumes";
+
+    $scope.generos = [];
+    $scope.artistas = [];
+    $scope.albumes = [];
+
+    $scope.generoSeleccionado = null;
+    $scope.tipoResultado = "todo";
+    $scope.mensaje = "";
+    $scope.cargando = false;
+
+    $scope.cargarGeneros = function () {
+        $http.get(URL_GENEROS)
+            .then(function (response) {
+                $scope.generos = response.data;
+            })
+            .catch(function (error) {
+                console.error("Error al cargar géneros:", error);
+                $scope.mensaje = "Error al cargar los géneros.";
+            });
+    };
+
+    $scope.filtrarPorGenero = function () {
+        if (!$scope.generoSeleccionado) {
+            $scope.artistas = [];
+            $scope.albumes = [];
+            $scope.mensaje = "";
+            return;
+        }
+
+        var idGenero = $scope.generoSeleccionado.id;
+
+        $scope.cargando = true;
+        $scope.mensaje = "";
+
+        $scope.artistas = [];
+        $scope.albumes = [];
+
+        if ($scope.tipoResultado === "todo" || $scope.tipoResultado === "artistas") {
+            $http.get(URL_ARTISTAS + "/genero/" + idGenero)
+                .then(function (response) {
+                    $scope.artistas = response.data;
+                })
+                .catch(function (error) {
+                    console.error("Error al cargar artistas por género:", error);
+                    $scope.mensaje = "Error al cargar los artistas.";
+                });
+        }
+
+        if ($scope.tipoResultado === "todo" || $scope.tipoResultado === "albumes") {
+            $http.get(URL_ALBUMES + "/genero/" + idGenero)
+                .then(function (response) {
+                    $scope.albumes = response.data;
+                })
+                .catch(function (error) {
+                    console.error("Error al cargar álbumes por género:", error);
+                    $scope.mensaje = "Error al cargar los álbumes.";
+                })
+                .finally(function () {
+                    $scope.cargando = false;
+                });
+        } else {
+            $scope.cargando = false;
+        }
+    };
+
+    $scope.verArtista = function (idArtista) {
+        window.location.href = "infoArtista.html?id=" + idArtista;
+    };
+
+});
