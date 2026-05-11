@@ -43,7 +43,7 @@ album_app.controller("AlbumController", function ($scope, $http) {
 
         $http.get(URL_ALBUMES, {
             params: {
-                nombre: $scope.busqueda,
+                titulo: $scope.busqueda,
                 limit: 20,
                 page: 0
             }
