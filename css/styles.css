@@ -137,6 +137,15 @@ header a:hover{
     font-weight: bold;
 }
 
+.fecha-lanzamiento{
+    display: inline-block;
+    padding: 2px 10px;
+    color: brown;
+    font-weight: bold;
+    background-color: rgba(255, 255, 0, 0.30);
+    box-shadow: 0 0 10px rgba(255, 255, 0, 0.35);
+}
+
 .resultados {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
