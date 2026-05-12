@@ -86,8 +86,7 @@
 
             <section class="resultados-albumes">
 
-                <div class="tarjeta-album"
-                     ng-repeat="album in albumes track by album.id">
+                <div class="tarjeta-album" ng-repeat="album in albumes track by album.id" ng-click="abrirAlbumSpotify(album)">
 
                     <div class="vinilo-wrapper">
                         <div class="disco"></div>
@@ -100,7 +99,7 @@
                     <h3>{{ album.titulo }}</h3>
 
                     <button class="btn-artista"
-                            ng-click="verArtista(album.idArtista)">
+                            ng-click="$event.stopPropagation(); verArtista(album.idArtista)">
                         Más sobre {{ album.nombreArtista }}
                     </button>
 

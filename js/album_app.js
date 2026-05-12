@@ -95,4 +95,31 @@ album_app.controller("AlbumController", function ($scope, $http) {
         });
     };
 
+    $scope.abrirAlbumSpotify = function (album) {
+
+        console.log("Álbum seleccionado:", album);
+        console.log("Título:", album.titulo);
+        console.log("Artista:", album.nombreArtista);
+
+        $http.get("http://localhost:8085/api/spotify/album/url", {
+            params: {
+                titulo: album.titulo,
+                artista: album.nombreArtista
+            }
+        })
+        .then(function (response) {
+            var spotifyUrl = response.data.url;
+
+            if (spotifyUrl) {
+                window.open(spotifyUrl, "_blank");
+            } else {
+                alert("No se ha encontrado este álbum en Spotify.");
+            }
+        })
+        .catch(function (error) {
+            console.error("Error al abrir álbum en Spotify:", error);
+            alert("No se pudo obtener el enlace de Spotify.");
+        });
+    };
+
 });
