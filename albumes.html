@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es" ng-app="miApp">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,82 +12,127 @@
     <script src="js/album_app.js"></script>
 
 </head>
-<body ng-controller="AlbumController" ng-init="cargarAleatorios()">
 
-    <header>
-        <h1>Sinfonía Urbana</h1>
-        <nav>
-            <ul>
-                <li><a href="./artistas.html">Artistas</a></li>
-                <li><a href="./albumes.html" class="active">Álbumes</a></li>
-                <li><a href="./canciones.html">Canciones</a></li>
-                <li><a href="./top.html">Top global</a></li>
-                <li><a href="./novedades.html">Novedades</a></li>
-                <li><a href="./generos.html">Géneros</a></li>
-            </ul>
-        </nav>
-    </header>
+<body>
 
-    <main class="contenedor-principal">
-        <section class="busqueda">
-            <input
-                type="text"
-                ng-model="busqueda"
-                placeholder="¿Qué album quieres buscar?"
-                ng-keypress="$event.which === 13 && buscarAlbumes()"
-            >
-            <button ng-click="buscarAlbumes()">Buscar</button>
-            <button ng-click="cargarAleatorios()">Mostrar aleatorios</button>
-        </section>
+    <div class="auth-box" ng-controller="loginController">
 
-        <section class="mensajes">
-            <p class="mensaje" ng-if="mensaje">{{ mensaje }}</p>
-            <h2 class="titulo-albumes">Álbumes</h2>
-            <br>
-            <hr>
-        </section>
+        <button class="btn-acceso" ng-if="!usuarioActual" ng-click="abrirLogin()">
+            Acceso
+        </button>
 
-        <section class="resultados-albumes" ng-if="albumes.length > 0">
+        <button class="btn-perfil" ng-if="usuarioActual" ng-click="toggleMenuPerfil()">
+            Perfil
+        </button>
 
-            <div class="tarjeta-album" ng-repeat="album in albumes track by album.id" ng-click="abrirAlbumSpotify(album)">
+        <button class="btn-logout" ng-if="usuarioActual" ng-click="cerrarSesion()">
+            Cerrar sesión
+        </button>
 
-                <div class="vinilo-wrapper">
-                    <div class="disco"></div>
-                    <div class="funda">
-                        <img ng-src="img1/{{ album.id }}.jpg" alt="{{ album.titulo }}">
-                    </div>
-                </div>
-            
+        <div class="menu-perfil" ng-if="menuPerfilVisible">
+            <p class="nombre-usuario">{{ usuarioActual.nickname }}</p>
+            <button>Mi perfil</button>
+            <button>Favoritos</button>
+            <button>Configuración</button>
+        </div>
 
-            <h3>{{ album.titulo }}</h3>
-            <button class="btn-artista"
-                ng-click="$event.stopPropagation(); verArtista(album.idArtista)">
-                Más sobre {{ album.nombreArtista }}
-            </button>
-            </div>
-        </section>
+        <div class="modal-login" ng-if="loginVisible">
+            <div class="login-contenido">
 
-        <section ng-if="albumes.length === 0 && !cargando && !mensaje">
-            <p>No hay albumes para mostrar.</p>
-        </section>
-        <br>
-    </main>
-    <footer>
-        <div class="footer-content">
-            <div>
-                <h3>Proyecto</h3>
-                <hr>
-                <p>Sinfonía Urbana</p>
-            </div>
+                <button class="cerrar-modal" ng-click="cerrarLogin()">×</button>
 
-            <div>
-                <h3>Contacto</h3>
-                <hr>
-                <p>yaiza5arias@gmail.com</p>
-                <p>cristinalopezdelapuente@gmail.com</p>
+                <h2>Iniciar sesión</h2>
+
+                <label>Usuario o email</label>
+                <input type="text" ng-model="loginData.identificador" placeholder="Introduce tu usuario o email">
+
+                <label>Contraseña</label>
+                <input type="password" ng-model="loginData.contrasena" placeholder="Introduce tu contraseña"
+                    ng-keypress="$event.which === 13 && iniciarSesion()">
+
+                <button class="btn-login" ng-click="iniciarSesion()">
+                    Entrar
+                </button>
+
             </div>
         </div>
-    </footer>
 
+    </div>
+
+    <div ng-controller="AlbumController" ng-init="cargarAleatorios()">
+
+        <header>
+            <h1>Sinfonía Urbana</h1>
+            <nav>
+                <ul>
+                    <li><a href="./artistas.html">Artistas</a></li>
+                    <li><a href="./albumes.html" class="active">Álbumes</a></li>
+                    <li><a href="./canciones.html">Canciones</a></li>
+                    <li><a href="./top.html">Top global</a></li>
+                    <li><a href="./novedades.html">Novedades</a></li>
+                    <li><a href="./generos.html">Géneros</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="contenedor-principal">
+
+            <section class="busqueda">
+                <input type="text" ng-model="busqueda" placeholder="¿Qué album quieres buscar?"
+                    ng-keypress="$event.which === 13 && buscarAlbumes()">
+                <button ng-click="buscarAlbumes()">Buscar</button>
+                <button ng-click="cargarAleatorios()">Mostrar aleatorios</button>
+            </section>
+
+            <section class="mensajes">
+                <p class="mensaje" ng-if="mensaje">{{ mensaje }}</p>
+                <h2 class="titulo-albumes">Álbumes</h2>
+                <br>
+                <hr>
+            </section>
+
+            <section class="resultados-albumes" ng-if="albumes.length > 0">
+
+                <div class="tarjeta-album" ng-repeat="album in albumes track by album.id"
+                    ng-click="abrirAlbumSpotify(album)">
+
+                    <div class="vinilo-wrapper">
+                        <div class="disco"></div>
+                        <div class="funda">
+                            <img ng-src="img1/{{ album.id }}.jpg" alt="{{ album.titulo }}">
+                        </div>
+                    </div>
+
+
+                    <h3>{{ album.titulo }}</h3>
+                    <button class="btn-artista" ng-click="$event.stopPropagation(); verArtista(album.idArtista)">
+                        Más sobre {{ album.nombreArtista }}
+                    </button>
+                </div>
+            </section>
+
+            <section ng-if="albumes.length === 0 && !cargando && !mensaje">
+                <p>No hay albumes para mostrar.</p>
+            </section>
+            <br>
+        </main>
+        <footer>
+            <div class="footer-content">
+                <div>
+                    <h3>Proyecto</h3>
+                    <hr>
+                    <p>Sinfonía Urbana</p>
+                </div>
+
+                <div>
+                    <h3>Contacto</h3>
+                    <hr>
+                    <p>yaiza5arias@gmail.com</p>
+                    <p>cristinalopezdelapuente@gmail.com</p>
+                </div>
+            </div>
+        </footer>
+    </div>
 </body>
+
 </html>
