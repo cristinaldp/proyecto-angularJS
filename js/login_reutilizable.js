@@ -23,7 +23,9 @@ angular.module("miApp").component("loginWidget", {
             <div class="menu-perfil" ng-if="$ctrl.menuPerfilVisible">
                 <p class="nombre-usuario">{{ $ctrl.usuarioActual.nickname }}</p>
                 <button>Mi perfil</button>
-                <button>Visto recientemente</button>
+                <button ng-click="$ctrl.irVistoRecientemente()">
+                    Visto recientemente
+                </button>
             </div>
 
             <div class="modal-login" ng-if="$ctrl.loginVisible">
@@ -108,6 +110,10 @@ angular.module("miApp").component("loginWidget", {
 
         ctrl.toggleMenuPerfil = function () {
             ctrl.menuPerfilVisible = !ctrl.menuPerfilVisible;
+        };
+
+        ctrl.irVistoRecientemente = function () {
+            window.location.href = "visto-recientemente.html";
         };
     }
 });

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es" ng-app="miApp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visto recientemente - Sinfonía Urbana</title>
+
+    <link rel="stylesheet" href="css/styles.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="js/visto_recientemente_app.js"></script>
+    <script src="js/login_reutilizable.js"></script>
+</head>
+
+<body>
+
+    <login-widget></login-widget>
+
+    <div ng-controller="VistoRecientementeController" ng-init="cargarVistas()">
+
+        <header>
+            <h1>Sinfonía Urbana</h1>
+            <nav>
+                <ul>
+                    <li><a href="./artistas.html">Artistas</a></li>
+                    <li><a href="./albumes.html">Álbumes</a></li>
+                    <li><a href="./canciones.html">Canciones</a></li>
+                    <li><a href="./top.html">Top global</a></li>
+                    <li><a href="./novedades.html">Novedades</a></li>
+                    <li><a href="./generos.html">Géneros</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="contenedor-principal">
+
+            <section class="mensajes">
+                <h2>Visto recientemente</h2>
+                <br>
+                <hr>
+                <p class="mensaje" ng-if="mensaje">{{ mensaje }}</p>
+            </section>
+
+            <section class="resultados" ng-if="canciones.length > 0">
+
+                <div class="tarjeta-cancion"
+                     ng-repeat="cancion in canciones track by $index"
+                     ng-click="abrirVideo(cancion)">
+
+                    <img class="miniatura-video"
+                         ng-if="cancion.miniaturaUrl"
+                         ng-src="{{ cancion.miniaturaUrl }}"
+                         alt="{{ cancion.titulo }}">
+
+                    <h3>{{ cancion.titulo }}</h3>
+                    <p><strong>Reproducciones:</strong> {{ cancion.reproducciones }}</p>
+
+                </div>
+
+            </section>
+
+            <section ng-if="canciones.length === 0 && !cargando">
+                <p>No hay canciones vistas recientemente.</p>
+            </section>
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>

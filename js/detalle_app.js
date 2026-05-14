@@ -48,6 +48,21 @@ detalle_app.controller("DetalleArtistaController", function ($scope, $http) {
     };
 
     $scope.abrirVideo = function (cancion) {
+
+        var usuarioActual = JSON.parse(localStorage.getItem("usuarioActual"));
+
+        if (usuarioActual && usuarioActual.id) {
+            $http.post("http://localhost:8085/api/canciones-vistas", {
+                idUsuario: usuarioActual.id,
+                idCancion: cancion.id
+            })
+            .then(function () {
+                console.log("Canción guardada como vista recientemente");
+            })
+            .catch(function (error) {
+                console.error("Error al guardar canción vista:", error);
+            });
+        }
         if (cancion.url) {
             window.open(cancion.url, "_blank");
         } else {
