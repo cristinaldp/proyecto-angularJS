@@ -54,7 +54,10 @@
                          alt="{{ cancion.titulo }}">
 
                     <h3>{{ cancion.titulo }}</h3>
-                    <p><strong>Reproducciones:</strong> {{ cancion.reproducciones }}</p>
+                    <p>
+                        <strong>Visto el:</strong>
+                        {{ cancion.fechaVista | date:'dd/MM/yyyy HH:mm' }}
+                    </p>
 
                 </div>
 
