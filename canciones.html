@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es" ng-app="miApp">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,75 +10,78 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="js/cancion_app.js"></script>
+    <script src="js/login_reutilizable.js"></script>
 
 </head>
-<body ng-controller="CancionController" ng-init="cargarAleatorias()">
 
-    <header>
-        <h1>Sinfonía Urbana</h1>
-        <nav>
-            <ul>
-                <li><a href="./artistas.html">Artistas</a></li>
-                <li><a href="./albumes.html">Álbumes</a></li>
-                <li><a href="./canciones.html" class="active">Canciones</a></li>
-                <li><a href="./top.html">Top global</a></li>
-                <li><a href="./novedades.html">Novedades</a></li>
-                <li><a href="./generos.html">Géneros</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main class="contenedor-principal">
-        <section class="busqueda">
-            <input
-                type="text"
-                ng-model="busqueda"
-                placeholder="¿Qué canción quieres buscar?"
-                ng-keypress="$event.which === 13 && buscarCanciones()"
-            >
-            <button ng-click="buscarCanciones()">Buscar</button>
-            <button ng-click="cargarAleatorias()">Cambiar sugerencias</button>
-        </section>
+<body>
 
-        <section class="mensajes">
-            <p class="mensaje" ng-if="mensaje">{{ mensaje }}</p>
-            <h2 class="titulo-canciones">¡Dale al play! ▶️</h2>
-            <br>
-            <hr>
-        </section>
+    <login-widget></login-widget>
 
-        <section class="resultados" ng-if="canciones.length > 0">
+    <div ng-controller="CancionController" ng-init="cargarAleatorias()">
 
-            <div class="tarjeta-cancion"
-                 ng-repeat="cancion in canciones track by cancion.id"
-                 ng-click="abrirVideo(cancion)">
-                
-                <img class="miniatura-video" ng-if="cancion.miniaturaUrl" ng-src="{{ cancion.miniaturaUrl }}" alt="{{ cancion.titulo }}">
-                <h3>{{ cancion.titulo }}</h3>
-                <p><strong>Reproducciones:</strong> {{ cancion.reproducciones }}</p>
-            </div>
-        </section>
+        <header>
+            <h1>Sinfonía Urbana</h1>
+            <nav>
+                <ul>
+                    <li><a href="./artistas.html">Artistas</a></li>
+                    <li><a href="./albumes.html">Álbumes</a></li>
+                    <li><a href="./canciones.html" class="active">Canciones</a></li>
+                    <li><a href="./top.html">Top global</a></li>
+                    <li><a href="./novedades.html">Novedades</a></li>
+                    <li><a href="./generos.html">Géneros</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main class="contenedor-principal">
+            <section class="busqueda">
+                <input type="text" ng-model="busqueda" placeholder="¿Qué canción quieres buscar?"
+                    ng-keypress="$event.which === 13 && buscarCanciones()">
+                <button ng-click="buscarCanciones()">Buscar</button>
+                <button ng-click="cargarAleatorias()">Cambiar sugerencias</button>
+            </section>
 
-        <section ng-if="canciones.length === 0 && !cargando && !mensaje">
-            <p>No hay canciones para mostrar.</p>
-        </section>
-
-    </main>
-    <footer>
-        <div class="footer-content">
-            <div>
-                <h3>Proyecto</h3>
+            <section class="mensajes">
+                <p class="mensaje" ng-if="mensaje">{{ mensaje }}</p>
+                <h2 class="titulo-canciones">¡Dale al play! ▶️</h2>
+                <br>
                 <hr>
-                <p>Sinfonía Urbana</p>
-            </div>
+            </section>
 
-            <div>
-                <h3>Contacto</h3>
-                <hr>
-                <p>yaiza5arias@gmail.com</p>
-                <p>cristinalopezdelapuente@gmail.com</p>
-            </div>
-        </div>
-    </footer>
+            <section class="resultados" ng-if="canciones.length > 0">
 
+                <div class="tarjeta-cancion" ng-repeat="cancion in canciones track by cancion.id"
+                    ng-click="abrirVideo(cancion)">
+
+                    <img class="miniatura-video" ng-if="cancion.miniaturaUrl" ng-src="{{ cancion.miniaturaUrl }}"
+                        alt="{{ cancion.titulo }}">
+                    <h3>{{ cancion.titulo }}</h3>
+                    <p><strong>Reproducciones:</strong> {{ cancion.reproducciones }}</p>
+                </div>
+            </section>
+
+            <section ng-if="canciones.length === 0 && !cargando && !mensaje">
+                <p>No hay canciones para mostrar.</p>
+            </section>
+
+        </main>
+        <footer>
+            <div class="footer-content">
+                <div>
+                    <h3>Proyecto</h3>
+                    <hr>
+                    <p>Sinfonía Urbana</p>
+                </div>
+
+                <div>
+                    <h3>Contacto</h3>
+                    <hr>
+                    <p>yaiza5arias@gmail.com</p>
+                    <p>cristinalopezdelapuente@gmail.com</p>
+                </div>
+            </div>
+        </footer>
+    </div>
 </body>
+
 </html>

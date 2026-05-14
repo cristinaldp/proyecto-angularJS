@@ -10,54 +10,13 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="js/album_app.js"></script>
+    <script src="js/login_reutilizable.js"></script>
 
 </head>
 
 <body>
 
-    <div class="auth-box" ng-controller="loginController">
-
-        <button class="btn-acceso" ng-if="!usuarioActual" ng-click="abrirLogin()">
-            Acceso
-        </button>
-
-        <button class="btn-perfil" ng-if="usuarioActual" ng-click="toggleMenuPerfil()">
-            Perfil
-        </button>
-
-        <button class="btn-logout" ng-if="usuarioActual" ng-click="cerrarSesion()">
-            Cerrar sesión
-        </button>
-
-        <div class="menu-perfil" ng-if="menuPerfilVisible">
-            <p class="nombre-usuario">{{ usuarioActual.nickname }}</p>
-            <button>Mi perfil</button>
-            <button>Favoritos</button>
-            <button>Configuración</button>
-        </div>
-
-        <div class="modal-login" ng-if="loginVisible">
-            <div class="login-contenido">
-
-                <button class="cerrar-modal" ng-click="cerrarLogin()">×</button>
-
-                <h2>Iniciar sesión</h2>
-
-                <label>Usuario o email</label>
-                <input type="text" ng-model="loginData.identificador" placeholder="Introduce tu usuario o email">
-
-                <label>Contraseña</label>
-                <input type="password" ng-model="loginData.contrasena" placeholder="Introduce tu contraseña"
-                    ng-keypress="$event.which === 13 && iniciarSesion()">
-
-                <button class="btn-login" ng-click="iniciarSesion()">
-                    Entrar
-                </button>
-
-            </div>
-        </div>
-
-    </div>
+    <login-widget></login-widget>
 
     <div ng-controller="AlbumController" ng-init="cargarAleatorios()">
 
@@ -116,6 +75,7 @@
             </section>
             <br>
         </main>
+        
         <footer>
             <div class="footer-content">
                 <div>

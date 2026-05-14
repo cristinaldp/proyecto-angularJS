@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es" ng-app="miApp">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,79 +10,81 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="js/cancion_app.js"></script>
+    <script src="js/login_reutilizable.js"></script>
 
 </head>
-<body ng-controller="CancionController" ng-init="cargarTopCanciones()">
 
-    <header>
-        <h1>Sinfonía Urbana</h1>
-        <nav>
-            <ul>
-                <li><a href="./artistas.html">Artistas</a></li>
-                <li><a href="./albumes.html">Álbumes</a></li>
-                <li><a href="./canciones.html">Canciones</a></li>
-                <li><a href="./top.html" class="active">Top global</a></li>
-                <li><a href="./novedades.html">Novedades</a></li>
-                <li><a href="./generos.html">Géneros</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main class="contenedor-principal">
-        <section class="busqueda">
-            <input
-                type="text"
-                ng-model="busqueda"
-                placeholder="¿Qué canción quieres buscar?"
-                ng-keypress="$event.which === 13 && buscarCanciones()"
-            >
-            <button ng-click="buscarCanciones()">Buscar</button>
-        </section>
+<body>
 
-        <section class="mensajes">
-            <p class="mensaje" ng-if="mensaje">{{ mensaje }}</p>
-            <h2 class="titulo-canciones">Top Global</h2>
-            <h4 class="titulo-canciones">Los temas más escuchados</h4>
-            <hr>
-        </section>
+    <login-widget></login-widget>
+    
+    <div ng-controller="CancionController" ng-init="cargarTopCanciones()">
 
-        <section class="resultados-top" ng-if="canciones.length > 0">
+        <header>
+            <h1>Sinfonía Urbana</h1>
+            <nav>
+                <ul>
+                    <li><a href="./artistas.html">Artistas</a></li>
+                    <li><a href="./albumes.html">Álbumes</a></li>
+                    <li><a href="./canciones.html">Canciones</a></li>
+                    <li><a href="./top.html" class="active">Top global</a></li>
+                    <li><a href="./novedades.html">Novedades</a></li>
+                    <li><a href="./generos.html">Géneros</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main class="contenedor-principal">
+            <section class="busqueda">
+                <input type="text" ng-model="busqueda" placeholder="¿Qué canción quieres buscar?"
+                    ng-keypress="$event.which === 13 && buscarCanciones()">
+                <button ng-click="buscarCanciones()">Buscar</button>
+            </section>
 
-            <div class="item-top"
-                ng-repeat="cancion in canciones track by cancion.id"
-                ng-click="abrirVideo(cancion)">
+            <section class="mensajes">
+                <p class="mensaje" ng-if="mensaje">{{ mensaje }}</p>
+                <h2 class="titulo-canciones">Top Global</h2>
+                <h4 class="titulo-canciones">Los temas más escuchados</h4>
+                <hr>
+            </section>
 
-                <span class="numero-top">{{ $index + 1 }}.</span>
+            <section class="resultados-top" ng-if="canciones.length > 0">
 
-                <div class="tarjeta-cancion">
-                    <h3>{{ cancion.titulo }}</h3>
-                    <p><strong>Reproducciones:</strong> {{ cancion.reproducciones }}</p>
+                <div class="item-top" ng-repeat="cancion in canciones track by cancion.id"
+                    ng-click="abrirVideo(cancion)">
+
+                    <span class="numero-top">{{ $index + 1 }}.</span>
+
+                    <div class="tarjeta-cancion">
+                        <h3>{{ cancion.titulo }}</h3>
+                        <p><strong>Reproducciones:</strong> {{ cancion.reproducciones }}</p>
+                    </div>
+
                 </div>
 
+            </section>
+
+            <section ng-if="canciones.length === 0 && !cargando && !mensaje">
+                <p>No hay canciones para mostrar.</p>
+            </section>
+
+        </main>
+        <footer>
+            <div class="footer-content">
+                <div>
+                    <h3>Proyecto</h3>
+                    <hr>
+                    <p>Sinfonía Urbana</p>
+                </div>
+
+                <div>
+                    <h3>Contacto</h3>
+                    <hr>
+                    <p>yaiza5arias@gmail.com</p>
+                    <p>cristinalopezdelapuente@gmail.com</p>
+                </div>
             </div>
-
-        </section>
-
-        <section ng-if="canciones.length === 0 && !cargando && !mensaje">
-            <p>No hay canciones para mostrar.</p>
-        </section>
-
-    </main>
-    <footer>
-        <div class="footer-content">
-            <div>
-                <h3>Proyecto</h3>
-                <hr>
-                <p>Sinfonía Urbana</p>
-            </div>
-
-            <div>
-                <h3>Contacto</h3>
-                <hr>
-                <p>yaiza5arias@gmail.com</p>
-                <p>cristinalopezdelapuente@gmail.com</p>
-            </div>
-        </div>
-    </footer>
-
+        </footer>
+    </div>
 </body>
+
 </html>

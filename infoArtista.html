@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es" ng-app="miApp">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,92 +10,99 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="js/detalle_app.js"></script>
+    <script src="js/login_reutilizable.js"></script>
+
 </head>
 
-<body ng-controller="DetalleArtistaController" ng-init="cargarDetalle()">
+<body>
 
-    <header>
-        <h1>Sinfonía Urbana</h1>
-        <nav>
-            <ul>
-                <li><a href="./artistas.html">Artistas</a></li>
-                <li><a href="./albumes.html">Álbumes</a></li>
-                <li><a href="./canciones.html">Canciones</a></li>
-                <li><a href="./top.html">Top global</a></li>
-                <li><a href="./novedades.html">Novedades</a></li>
-                <li><a href="./generos.html">Géneros</a></li>
-            </ul>
-        </nav>
-    </header>
+    <login-widget></login-widget>
+    
+    <div ng-controller="DetalleArtistaController" ng-init="cargarDetalle()">
 
-    <main class="contenedor-principal detalle-artista-container">
+        <header>
+            <h1>Sinfonía Urbana</h1>
+            <nav>
+                <ul>
+                    <li><a href="./artistas.html">Artistas</a></li>
+                    <li><a href="./albumes.html">Álbumes</a></li>
+                    <li><a href="./canciones.html">Canciones</a></li>
+                    <li><a href="./top.html">Top global</a></li>
+                    <li><a href="./novedades.html">Novedades</a></li>
+                    <li><a href="./generos.html">Géneros</a></li>
+                </ul>
+            </nav>
+        </header>
 
-        <section class="volver">
-            <a href="artistas.html">← Volver a artistas</a>
-        </section>
+        <main class="contenedor-principal detalle-artista-container">
 
-        <section class="mensajes">
-            <p class="mensaje" ng-if="mensaje">{{ mensaje }}</p>
-            <p ng-if="cargando">Cargando información del artista...</p>
-        </section>
+            <section class="volver">
+                <a href="artistas.html">← Volver a artistas</a>
+            </section>
 
-        <section class="detalle-artista" ng-if="artista">
-            <div class="detalle-imagen">
+            <section class="mensajes">
+                <p class="mensaje" ng-if="mensaje">{{ mensaje }}</p>
+                <p ng-if="cargando">Cargando información del artista...</p>
+            </section>
+
+            <section class="detalle-artista" ng-if="artista">
+                <div class="detalle-imagen">
                     <img ng-src="img/{{ artista.id }}.jpg" alt="{{ artista.nombre }}">
-            </div>
+                </div>
 
-            <div class="detalle-info">
-                <h2>{{ artista.nombre }}</h2>
+                <div class="detalle-info">
+                    <h2>{{ artista.nombre }}</h2>
 
-                <p><strong>País:</strong> {{ artista.pais }}</p>
-                <p><strong>Edad:</strong> {{ artista.edad }}</p>
-                <p><strong>Género:</strong> {{ artista.genero }}</p>
-                <p><strong>Productor:</strong> {{ artista.productor }}</p>
-                <p><strong>Oyentes mensuales:</strong> {{ artista.oyentesMensuales }}</p>
+                    <p><strong>País:</strong> {{ artista.pais }}</p>
+                    <p><strong>Edad:</strong> {{ artista.edad }}</p>
+                    <p><strong>Género:</strong> {{ artista.genero }}</p>
+                    <p><strong>Productor:</strong> {{ artista.productor }}</p>
+                    <p><strong>Oyentes mensuales:</strong> {{ artista.oyentesMensuales }}</p>
 
-                <div class="biografia">
-                    <h3>Biografía</h3>
-                    <p>{{ artista.biografia }}</p>
+                    <div class="biografia">
+                        <h3>Biografía</h3>
+                        <p>{{ artista.biografia }}</p>
+                    </div>
+                </div>
+            </section>
+            <section class="mensajes">
+                <p class="mensaje" ng-if="mensaje">{{ mensaje }}</p>
+                <h2 class="titulo-canciones">Top Canciones</h2>
+                <hr>
+            </section>
+            <section class="resultados" ng-if="canciones.length > 0">
+
+                <div class="tarjeta-cancion" ng-repeat="cancion in canciones track by cancion.id"
+                    ng-click="abrirVideo(cancion)">
+
+                    <img class="miniatura-video" ng-if="cancion.miniaturaUrl" ng-src="{{ cancion.miniaturaUrl }}"
+                        alt="{{ cancion.titulo }}">
+                    <h3>{{ cancion.titulo }}</h3>
+                    <p><strong>Reproducciones:</strong> {{ cancion.reproducciones }}</p>
+                </div>
+            </section>
+            <section ng-if="canciones.length === 0 && !cargando && !mensaje">
+                <p>No hay canciones disponibles.</p>
+            </section>
+
+        </main>
+        <footer>
+            <div class="footer-content">
+                <div>
+                    <h3>Proyecto</h3>
+                    <hr>
+                    <p>Sinfonía Urbana</p>
+                </div>
+
+                <div>
+                    <h3>Contacto</h3>
+                    <hr>
+                    <p>yaiza5arias@gmail.com</p>
+                    <p>cristinalopezdelapuente@gmail.com</p>
                 </div>
             </div>
-        </section>
-         <section class="mensajes">
-            <p class="mensaje" ng-if="mensaje">{{ mensaje }}</p>
-            <h2 class="titulo-canciones">Top Canciones</h2>
-            <hr>
-        </section>
-        <section class="resultados" ng-if="canciones.length > 0">
-
-            <div class="tarjeta-cancion"
-                 ng-repeat="cancion in canciones track by cancion.id"
-                 ng-click="abrirVideo(cancion)">
-                
-                <img class="miniatura-video" ng-if="cancion.miniaturaUrl" ng-src="{{ cancion.miniaturaUrl }}" alt="{{ cancion.titulo }}">
-                <h3>{{ cancion.titulo }}</h3>
-                <p><strong>Reproducciones:</strong> {{ cancion.reproducciones }}</p>
-            </div>
-        </section>
-        <section ng-if="canciones.length === 0 && !cargando && !mensaje">
-            <p>No hay canciones disponibles.</p>
-        </section>
-
-    </main>
-     <footer>
-        <div class="footer-content">
-            <div>
-                <h3>Proyecto</h3>
-                <hr>
-                <p>Sinfonía Urbana</p>
-            </div>
-
-            <div>
-                <h3>Contacto</h3>
-                <hr>
-                <p>yaiza5arias@gmail.com</p>
-                <p>cristinalopezdelapuente@gmail.com</p>
-            </div>
-        </div>
-    </footer>
-
+        </footer>
+    </div>
 </body>
+
 </html>

@@ -341,7 +341,7 @@ footer {
     
 }
 
-.auth-box {
+.inicio-sesion {
     position: fixed;
     top: 30px;
     left: 30px;
@@ -395,7 +395,12 @@ footer {
 
 .nombre-usuario {
     font-weight: bold;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
+    margin-left: 4px;
+    padding-left: 5px;
+    color: white;
+    background-color:#314163;
+    border-radius: 5px;
 }
 
 .modal-login {

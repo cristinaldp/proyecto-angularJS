@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es" ng-app="miApp">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,77 +10,79 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="js/artista_app.js"></script>
+    <script src="js/login_reutilizable.js"></script>
 
 </head>
-<body ng-controller="ArtistaController" ng-init="cargarAleatorios()">
 
-    <header>
-        <h1>Sinfonía Urbana</h1>
-        <nav>
-            <ul>
-                <li><a href="./artistas.html" class="active">Artistas</a></li>
-                <li><a href="./albumes.html">Álbumes</a></li>
-                <li><a href="./canciones.html">Canciones</a></li>
-                <li><a href="./top.html">Top global</a></li>
-                <li><a href="./novedades.html">Novedades</a></li>
-                <li><a href="./generos.html">Géneros</a></li>
-            </ul>
-        </nav>
-    </header>
+<body>
 
-    <main class="contenedor-principal">
-        <section class="busqueda">
-            <input
-                type="text"
-                ng-model="busqueda"
-                placeholder="¿Qué artista quieres buscar?"
-                ng-keypress="$event.which === 13 && buscarArtistas()"
-            >
-            <button ng-click="buscarArtistas()">Buscar</button>
-            <button ng-click="cargarAleatorios()">Mostrar aleatorios</button>
-        </section>
+    <login-widget></login-widget>
 
-        <section class="mensajes">
-            <p class="mensaje" ng-if="mensaje">{{ mensaje }}</p>
-            <h2 class="titulo-artistas">Artistas Recomendados</h2>
-            <br>
-            <hr>
-        </section>
+    <div ng-controller="ArtistaController" ng-init="cargarAleatorios()">
 
-        <section class="resultados" ng-if="artistas.length > 0">
+        <header>
+            <h1>Sinfonía Urbana</h1>
+            <nav>
+                <ul>
+                    <li><a href="./artistas.html" class="active">Artistas</a></li>
+                    <li><a href="./albumes.html">Álbumes</a></li>
+                    <li><a href="./canciones.html">Canciones</a></li>
+                    <li><a href="./top.html">Top global</a></li>
+                    <li><a href="./novedades.html">Novedades</a></li>
+                    <li><a href="./generos.html">Géneros</a></li>
+                </ul>
+            </nav>
+        </header>
 
-            <div class="tarjeta-artista"
-                 ng-repeat="artista in artistas track by artista.id"
-                 ng-click="verArtista(artista.id)">
+        <main class="contenedor-principal">
+            <section class="busqueda">
+                <input type="text" ng-model="busqueda" placeholder="¿Qué artista quieres buscar?"
+                    ng-keypress="$event.which === 13 && buscarArtistas()">
+                <button ng-click="buscarArtistas()">Buscar</button>
+                <button ng-click="cargarAleatorios()">Mostrar aleatorios</button>
+            </section>
 
-                <img ng-src="img/{{ artista.id }}.jpg" alt="{{ artista.nombre }}">
-
-                <h3>{{ artista.nombre }}</h3>
-                <p><strong>País:</strong> {{ artista.pais }}</p>
-                <p><strong>Género:</strong> {{ artista.genero }}</p>
-            </div>
-        </section>
-
-        <section ng-if="artistas.length === 0 && !cargando && !mensaje">
-            <p>No hay artistas para mostrar.</p>
-        </section>
-    </main>
-    <footer>
-        <div class="footer-content">
-            <div>
-                <h3>Proyecto</h3>
+            <section class="mensajes">
+                <p class="mensaje" ng-if="mensaje">{{ mensaje }}</p>
+                <h2 class="titulo-artistas">Artistas Recomendados</h2>
+                <br>
                 <hr>
-                <p>Sinfonía Urbana</p>
-            </div>
+            </section>
 
-            <div>
-                <h3>Contacto</h3>
-                <hr>
-                <p>yaiza5arias@gmail.com</p>
-                <p>cristinalopezdelapuente@gmail.com</p>
-            </div>
-        </div>
-    </footer>
+            <section class="resultados" ng-if="artistas.length > 0">
 
+                <div class="tarjeta-artista" ng-repeat="artista in artistas track by artista.id"
+                    ng-click="verArtista(artista.id)">
+
+                    <img ng-src="img/{{ artista.id }}.jpg" alt="{{ artista.nombre }}">
+
+                    <h3>{{ artista.nombre }}</h3>
+                    <p><strong>País:</strong> {{ artista.pais }}</p>
+                    <p><strong>Género:</strong> {{ artista.genero }}</p>
+                </div>
+            </section>
+
+            <section ng-if="artistas.length === 0 && !cargando && !mensaje">
+                <p>No hay artistas para mostrar.</p>
+            </section>
+        </main>
+        <footer>
+            <div class="footer-content">
+                <div>
+                    <h3>Proyecto</h3>
+                    <hr>
+                    <p>Sinfonía Urbana</p>
+                </div>
+
+                <div>
+                    <h3>Contacto</h3>
+                    <hr>
+                    <p>yaiza5arias@gmail.com</p>
+                    <p>cristinalopezdelapuente@gmail.com</p>
+                </div>
+            </div>
+        </footer>
+    </div>
 </body>
+
 </html>

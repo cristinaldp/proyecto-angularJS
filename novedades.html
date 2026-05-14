@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es" ng-app="miApp">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,88 +10,91 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="js/album_app.js"></script>
+    <script src="js/login_reutilizable.js"></script>
 
 </head>
-<body ng-controller="AlbumController" ng-init="cargarNovedades()">
 
-    <header>
-        <h1>Sinfonía Urbana</h1>
-        <nav>
-            <ul>
-                <li><a href="./artistas.html">Artistas</a></li>
-                <li><a href="./albumes.html">Álbumes</a></li>
-                <li><a href="./canciones.html">Canciones</a></li>
-                <li><a href="./top.html">Top global</a></li>
-                <li><a href="./novedades.html" class="active">Novedades</a></li>
-                <li><a href="./generos.html">Géneros</a></li>
-            </ul>
-        </nav>
-    </header>
+<body>
 
-    <main class="contenedor-principal">
-        <section class="busqueda">
-            <input
-                type="text"
-                ng-model="busqueda"
-                placeholder="¿Qué album quieres buscar?"
-                ng-keypress="$event.which === 13 && buscarAlbumes()"
-            >
-            <button ng-click="buscarAlbumes()">Buscar</button>
-        </section>
+    <login-widget></login-widget>
+    
+    <div ng-controller="AlbumController" ng-init="cargarNovedades()">
 
-        <section class="mensajes">
-            <p class="mensaje" ng-if="mensaje">{{ mensaje }}</p>
-            <h2 class="titulo-canciones">Novedades</h2>
-            <h4 class="titulo-canciones">Últimos lanzamientos</h4>
-            <hr>
-        </section>
+        <header>
+            <h1>Sinfonía Urbana</h1>
+            <nav>
+                <ul>
+                    <li><a href="./artistas.html">Artistas</a></li>
+                    <li><a href="./albumes.html">Álbumes</a></li>
+                    <li><a href="./canciones.html">Canciones</a></li>
+                    <li><a href="./top.html">Top global</a></li>
+                    <li><a href="./novedades.html" class="active">Novedades</a></li>
+                    <li><a href="./generos.html">Géneros</a></li>
+                </ul>
+            </nav>
+        </header>
 
-        <section class="resultados-albumes" ng-if="albumes.length > 0">
+        <main class="contenedor-principal">
+            <section class="busqueda">
+                <input type="text" ng-model="busqueda" placeholder="¿Qué album quieres buscar?"
+                    ng-keypress="$event.which === 13 && buscarAlbumes()">
+                <button ng-click="buscarAlbumes()">Buscar</button>
+            </section>
 
-            <div class="tarjeta-album" ng-repeat="album in albumes track by album.id" ng-click="abrirAlbumSpotify(album)">
+            <section class="mensajes">
+                <p class="mensaje" ng-if="mensaje">{{ mensaje }}</p>
+                <h2 class="titulo-canciones">Novedades</h2>
+                <h4 class="titulo-canciones">Últimos lanzamientos</h4>
+                <hr>
+            </section>
 
-                <div class="vinilo-wrapper">
-                    <div class="disco"></div>
-                    <div class="funda">
-                        <img ng-src="img1/{{ album.id }}.jpg" alt="{{ album.titulo }}">
+            <section class="resultados-albumes" ng-if="albumes.length > 0">
+
+                <div class="tarjeta-album" ng-repeat="album in albumes track by album.id"
+                    ng-click="abrirAlbumSpotify(album)">
+
+                    <div class="vinilo-wrapper">
+                        <div class="disco"></div>
+                        <div class="funda">
+                            <img ng-src="img1/{{ album.id }}.jpg" alt="{{ album.titulo }}">
+                        </div>
                     </div>
+
+
+                    <h3>{{ album.titulo }}</h3>
+
+                    <p class="fecha-lanzamiento">
+                        Fue estrenado el {{ album.ano | date:'dd/MM/yyyy'}}
+                    </p>
+
+                    <button class="btn-artista" ng-click="$event.stopPropagation(); verArtista(album.idArtista)">
+                        Más sobre {{ album.nombreArtista }}
+                    </button>
                 </div>
-            
+            </section>
 
-            <h3>{{ album.titulo }}</h3>
+            <section ng-if="albumes.length === 0 && !cargando && !mensaje">
+                <p>No hay albumes para mostrar.</p>
+            </section>
+            <br>
+        </main>
+        <footer>
+            <div class="footer-content">
+                <div>
+                    <h3>Proyecto</h3>
+                    <hr>
+                    <p>Sinfonía Urbana</p>
+                </div>
 
-            <p class="fecha-lanzamiento">
-                Fue estrenado el {{ album.ano | date:'dd/MM/yyyy'}}
-            </p>
-
-            <button class="btn-artista"
-                ng-click="$event.stopPropagation(); verArtista(album.idArtista)">
-                Más sobre {{ album.nombreArtista }}
-            </button>
+                <div>
+                    <h3>Contacto</h3>
+                    <hr>
+                    <p>yaiza5arias@gmail.com</p>
+                    <p>cristinalopezdelapuente@gmail.com</p>
+                </div>
             </div>
-        </section>
-
-        <section ng-if="albumes.length === 0 && !cargando && !mensaje">
-            <p>No hay albumes para mostrar.</p>
-        </section>
-        <br>
-    </main>
-    <footer>
-        <div class="footer-content">
-            <div>
-                <h3>Proyecto</h3>
-                <hr>
-                <p>Sinfonía Urbana</p>
-            </div>
-
-            <div>
-                <h3>Contacto</h3>
-                <hr>
-                <p>yaiza5arias@gmail.com</p>
-                <p>cristinalopezdelapuente@gmail.com</p>
-            </div>
-        </div>
-    </footer>
-
+        </footer>
+    </div>
 </body>
+
 </html>
