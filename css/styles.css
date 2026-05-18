@@ -19,6 +19,17 @@ body {
     flex-direction: column;
 }
 
+.layout-pagina {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.layout-pagina main,
+.layout-pagina .contenedor-principal {
+    flex: 1;
+}
+
 header {
     background-color: #1f2a44;
     color: white;
@@ -440,6 +451,7 @@ footer {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 10px;
+    box-sizing: border-box;
 }
 
 .btn-login {
@@ -569,6 +581,20 @@ footer {
     padding: 10px 14px;
     font-size: 15px;
     border-radius: 8px;
+}
+
+@media (max-width: 690px) {
+    .auth-box {
+        position: absolute;
+        top: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 9999;
+    }
+
+    header {
+        padding-top: 85px;
+    }
 }
 
 @media (max-width: 768px) {
