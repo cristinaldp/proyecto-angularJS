@@ -58,7 +58,8 @@
                     <div class="vinilo-wrapper">
                         <div class="disco"></div>
                         <div class="funda">
-                            <img ng-src="img1/{{ album.id }}.jpg" alt="{{ album.titulo }}">
+                            <img ng-src="http://localhost:8085/api/albumes/{{ album.id }}/imagen"
+                                alt="{{ album.titulo }}">
                         </div>
                     </div>
 
@@ -75,7 +76,7 @@
             </section>
             <br>
         </main>
-        
+
         <footer>
             <div class="footer-content">
                 <div>

@@ -47,7 +47,8 @@
 
             <section class="detalle-artista" ng-if="artista">
                 <div class="detalle-imagen">
-                    <img ng-src="img/{{ artista.id }}.jpg" alt="{{ artista.nombre }}">
+                    <img ng-src="http://localhost:8085/api/artistas/{{ artista.id }}/imagen"
+                        alt="{{ artista.nombre }}">
                 </div>
 
                 <div class="detalle-info">

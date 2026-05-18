@@ -54,7 +54,8 @@
                 <div class="tarjeta-artista" ng-repeat="artista in artistas track by artista.id"
                     ng-click="verArtista(artista.id)">
 
-                    <img ng-src="img/{{ artista.id }}.jpg" alt="{{ artista.nombre }}">
+                    <img ng-src="http://localhost:8085/api/artistas/{{ artista.id }}/imagen"
+                        alt="{{ artista.nombre }}">
 
                     <h3>{{ artista.nombre }}</h3>
                     <p><strong>País:</strong> {{ artista.pais }}</p>
