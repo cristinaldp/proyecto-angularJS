@@ -22,7 +22,12 @@
 
         <header>
             <h1>Sinfonía Urbana</h1>
-            <nav>
+
+            <button class="btn-menu-movil" ng-click="menuMovilAbierto = !menuMovilAbierto">
+                ☰
+            </button>
+
+            <nav ng-class="{ 'nav-abierto': menuMovilAbierto }">
                 <ul>
                     <li><a href="./artistas.html">Artistas</a></li>
                     <li><a href="./albumes.html">Álbumes</a></li>
@@ -33,6 +38,7 @@
                 </ul>
             </nav>
         </header>
+
         <main class="contenedor-principal">
             <section class="busqueda">
                 <input type="text" ng-model="busqueda" placeholder="¿Qué canción quieres buscar?"

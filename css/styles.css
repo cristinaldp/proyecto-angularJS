@@ -583,6 +583,10 @@ footer {
     border-radius: 8px;
 }
 
+.btn-menu-movil {
+    display: none;
+}
+
 @media (max-width: 690px) {
     .auth-box {
         position: absolute;
@@ -593,7 +597,57 @@ footer {
     }
 
     header {
+        position: relative;
+        padding-bottom: 28px;
         padding-top: 85px;
+    }
+}
+
+@media (max-width: 900px) {
+    header {
+        position: relative;
+        padding-bottom: 28px;
+        padding-top: 85px;
+    }
+
+    header nav {
+        display: none;
+        margin-top: 14px;
+    }
+
+    .btn-menu-movil {
+        display: block;
+        margin: 14px auto 0;
+        background: transparent;
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.45);
+        border-radius: 10px;
+        padding: 8px 14px;
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    header nav ul {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        padding: 0;
+        margin: 0;
+    }
+
+    header nav.nav-abierto {
+        display: block;
+    }
+
+    header nav ul li {
+        list-style: none;
+    }
+
+    header nav ul li a {
+        display: block;
+        padding: 8px 18px;
+        border-radius: 10px;
     }
 }
 
