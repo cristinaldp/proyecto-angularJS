@@ -67,7 +67,7 @@ angular.module("miApp").component("loginWidget", {
             contrasena: ""
         };
 
-        ctrl.$onInit = function () {
+        ctrl.$onInit = function () { /*esta función me guarda el inicio de sesión en local para no empezar de cero en cada página*/
             ctrl.usuarioActual = JSON.parse(localStorage.getItem("usuarioActual"));
         };
 
