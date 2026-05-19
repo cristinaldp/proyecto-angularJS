@@ -2,57 +2,83 @@ angular.module("miApp").component("loginWidget", {
     template: `
         <div class="inicio-sesion">
 
-            <button class="btn-acceso"
-                    ng-if="!$ctrl.usuarioActual"
-                    ng-click="$ctrl.abrirLogin()">
+            <button class="btn-acceso" ng-if="!$ctrl.usuarioActual" ng-click="$ctrl.abrirLogin()">
                 Acceso
             </button>
 
-            <button class="btn-perfil"
-                    ng-if="$ctrl.usuarioActual"
-                    ng-click="$ctrl.toggleMenuPerfil()">
+            <button class="btn-perfil" ng-if="$ctrl.usuarioActual"  ng-click="$ctrl.toggleMenuPerfil()">
                 Perfil
             </button>
 
-            <button class="btn-logout"
-                    ng-if="$ctrl.usuarioActual"
-                    ng-click="$ctrl.cerrarSesion()">
+            <button class="btn-logout" ng-if="$ctrl.usuarioActual" ng-click="$ctrl.cerrarSesion()">
                 Cerrar sesión
             </button>
 
             <div class="menu-perfil" ng-if="$ctrl.menuPerfilVisible">
                 <p class="nombre-usuario">{{ $ctrl.usuarioActual.nickname }}</p>
-                <button>Mi perfil</button>
+
+                <button ng-click="$ctrl.irPerfil()">
+                    Mi perfil
+                </button>
+
                 <button ng-click="$ctrl.irVistoRecientemente()">
                     Visto recientemente
                 </button>
             </div>
 
-            <div class="modal-login" ng-if="$ctrl.loginVisible">
-                <div class="login-contenido">
+        </div>
+        <div class="modal-login" ng-if="$ctrl.loginVisible">
+            <div class="login-contenido">
 
-                    <button class="cerrar-modal" ng-click="$ctrl.cerrarLogin()">×</button>
+                <button class="cerrar-modal" ng-click="$ctrl.cerrarLogin()">×</button>
+
+                <div ng-if="!$ctrl.modoRegistro">
 
                     <h2>Iniciar sesión</h2>
 
                     <label>Usuario o email</label>
-                    <input type="text"
-                           ng-model="$ctrl.loginData.identificador"
-                           placeholder="Introduce tu usuario o email">
+                    <input type="text" ng-model="$ctrl.loginData.identificador" placeholder="Introduce tu usuario o email">
 
                     <label>Contraseña</label>
-                    <input type="password"
-                           ng-model="$ctrl.loginData.contrasena"
-                           placeholder="Introduce tu contraseña"
-                           ng-keypress="$event.which === 13 && $ctrl.iniciarSesion()">
+                    <input type="password" ng-model="$ctrl.loginData.contrasena" placeholder="Introduce tu contraseña" ng-keypress="$event.which === 13 && $ctrl.iniciarSesion()">
 
                     <button class="btn-login" ng-click="$ctrl.iniciarSesion()">
                         Entrar
                     </button>
 
-                </div>
-            </div>
+                    <button class="btn-login btn-registro" ng-click="$ctrl.mostrarRegistro()">
+                        Registrarse
+                    </button>
 
+                </div>
+
+                <div ng-if="$ctrl.modoRegistro">
+
+                    <h2>Registrarse</h2>
+
+                    <label>Email</label>
+                    <input type="email" ng-model="$ctrl.registroData.email" placeholder="Introduce tu email">
+
+                    <label>Nickname</label>
+                    <input type="text" ng-model="$ctrl.registroData.nickname" placeholder="Elige un nickname">
+
+                    <label>Contraseña</label>
+                    <input type="password" ng-model="$ctrl.registroData.contrasena" placeholder="Introduce una contraseña" ng-keypress="$event.which === 13 && $ctrl.registrarse()">
+
+                    <label>Repetir contraseña</label>
+                    <input type="password" ng-model="$ctrl.registroData.repetirContrasena" placeholder="Vuelve a escribir la contraseña" ng-keypress="$event.which === 13 && $ctrl.registrarse()">
+
+                    <button class="btn-login" ng-click="$ctrl.registrarse()">
+                        Crear cuenta
+                    </button>
+
+                    <button class="btn-login btn-registro" ng-click="$ctrl.mostrarLogin()">
+                        Volver al login
+                    </button>
+
+                </div>
+
+            </div>
         </div>
     `,
 
@@ -61,10 +87,26 @@ angular.module("miApp").component("loginWidget", {
 
         ctrl.loginVisible = false;
         ctrl.menuPerfilVisible = false;
+        ctrl.modoRegistro = false;
+
+        ctrl.registroData = {
+            email: "",
+            nickname: "",
+            contrasena: "",
+            repetirContrasena: ""
+        };
 
         ctrl.loginData = {
             identificador: "",
             contrasena: ""
+        };
+
+        ctrl.mostrarRegistro = function () {
+            ctrl.modoRegistro = true;
+        };
+
+        ctrl.mostrarLogin = function () {
+            ctrl.modoRegistro = false;
         };
 
         ctrl.$onInit = function () { /*esta función me guarda el inicio de sesión en local para no empezar de cero en cada página*/
@@ -99,6 +141,59 @@ angular.module("miApp").component("loginWidget", {
                 .catch(function (error) {
                     console.error("Error de login:", error);
                     alert("Usuario o contraseña incorrectos.");
+                });
+        };
+
+        ctrl.registrarse = function () {
+
+            if (!ctrl.registroData.email || !ctrl.registroData.nickname || !ctrl.registroData.contrasena || !ctrl.registroData.repetirContrasena) {
+                alert("Todos los campos son obligatorios.");
+                return;
+            }
+
+            if (ctrl.registroData.contrasena.length < 6) {
+                alert("La contraseña debe tener al menos 6 caracteres.");
+                return;
+            }
+
+            if (ctrl.registroData.contrasena !== ctrl.registroData.repetirContrasena) {
+                alert("Las contraseñas no coinciden.");
+                return;
+            }
+
+            var datosRegistro = {
+                email: ctrl.registroData.email,
+                nickname: ctrl.registroData.nickname,
+                contrasena: ctrl.registroData.contrasena
+            };
+
+            $http.post("http://localhost:8085/api/usuarios/registro", datosRegistro)
+                .then(function (response) {
+
+                    ctrl.usuarioActual = response.data;
+
+                    localStorage.setItem("usuarioActual", JSON.stringify(response.data));
+
+                    ctrl.loginVisible = false;
+                    ctrl.menuPerfilVisible = false;
+                    ctrl.modoRegistro = false;
+
+                    ctrl.registroData = {
+                        email: "",
+                        nickname: "",
+                        contrasena: "",
+                        repetirContrasena: ""
+                    };
+
+                })
+                .catch(function (error) {
+                    console.error("Error de registro:", error);
+
+                    if (error.data && error.data.mensaje) {
+                        alert(error.data.mensaje);
+                    } else {
+                        alert("No se pudo registrar el usuario.");
+                    }
                 });
         };
 
