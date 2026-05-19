@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="css/styles.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+    <script src="js/i18n.js"></script>
     <script src="js/artista_app.js"></script>
     <script src="js/login_reutilizable.js"></script>
 
@@ -21,7 +23,7 @@
     <div ng-controller="ArtistaController" ng-init="cargarAleatorios()">
 
         <header>
-            <h1>Sinfonía Urbana</h1>
+            <h1>{{ t.tituloApp }}</h1>
 
             <button class="btn-menu-movil" ng-click="menuMovilAbierto = !menuMovilAbierto">
                 ☰
@@ -29,27 +31,27 @@
 
             <nav ng-class="{ 'nav-abierto': menuMovilAbierto }">
                 <ul>
-                    <li><a href="./artistas.html" class="active">Artistas</a></li>
-                    <li><a href="./albumes.html">Álbumes</a></li>
-                    <li><a href="./canciones.html">Canciones</a></li>
-                    <li><a href="./top.html">Top global</a></li>
-                    <li><a href="./novedades.html">Novedades</a></li>
-                    <li><a href="./generos.html">Géneros</a></li>
+                    <li><a href="./artistas.html" class="active">{{ t.menuArtistas }}</a></li>
+                    <li><a href="./albumes.html">{{ t.menuAlbumes }}</a></li>
+                    <li><a href="./canciones.html">{{ t.menuCanciones }}</a></li>
+                    <li><a href="./top.html">{{ t.menuTop }}</a></li>
+                    <li><a href="./novedades.html">{{ t.menuNovedades }}</a></li>
+                    <li><a href="./generos.html">{{ t.menuGeneros }}</a></li>
                 </ul>
             </nav>
         </header>
 
         <main class="contenedor-principal">
             <section class="busqueda">
-                <input type="text" ng-model="busqueda" placeholder="¿Qué artista quieres buscar?"
+                <input type="text" ng-model="busqueda" placeholder="{{ t.placeholderArtistas }}"
                     ng-keypress="$event.which === 13 && buscarArtistas()">
-                <button ng-click="buscarArtistas()">Buscar</button>
-                <button ng-click="cargarAleatorios()">Mostrar aleatorios</button>
+                <button ng-click="buscarArtistas()">{{ t.buscar }}</button>
+                <button ng-click="cargarAleatorios()">{{ t.mostrarAleatorios }}</button>
             </section>
 
             <section class="mensajes">
                 <p class="mensaje" ng-if="mensaje">{{ mensaje }}</p>
-                <h2 class="titulo-artistas">Artistas Recomendados</h2>
+                <h2 class="titulo-artistas">{{ t.tituloArtistas }}</h2>
                 <br>
                 <hr>
             </section>
@@ -63,8 +65,8 @@
                         alt="{{ artista.nombre }}">
 
                     <h3>{{ artista.nombre }}</h3>
-                    <p><strong>País:</strong> {{ artista.pais }}</p>
-                    <p><strong>Género:</strong> {{ artista.genero }}</p>
+                    <p><strong>{{ t.pais }}</strong> {{ artista.pais }}</p>
+                    <p><strong>{{ t.genero }}</strong> {{ artista.genero }}</p>
                 </div>
             </section>
 
@@ -75,9 +77,9 @@
         <footer>
             <div class="footer-content">
                 <div>
-                    <h3>Proyecto</h3>
+                    <h3>{{ t.proyecto }}</h3>
                     <hr>
-                    <p>Sinfonía Urbana</p>
+                    <p>{{ t.tituloApp }}</p>
                 </div>
 
                 <div>

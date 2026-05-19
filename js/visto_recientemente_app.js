@@ -2,6 +2,9 @@ var vistas_app = angular.module("miApp", []);
 
 vistas_app.controller("VistoRecientementeController", function ($scope, $http) {
 
+    $scope.idiomaActual = localStorage.getItem("idiomaActual") || "es";
+    $scope.t = I18N[$scope.idiomaActual];
+
     $scope.canciones = [];
     $scope.mensaje = "";
     $scope.cargando = false;

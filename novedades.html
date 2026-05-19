@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="css/styles.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    
+    <script src="js/i18n.js"></script>
     <script src="js/album_app.js"></script>
     <script src="js/login_reutilizable.js"></script>
 
@@ -21,7 +23,7 @@
     <div ng-controller="AlbumController" ng-init="cargarNovedades()">
 
         <header>
-            <h1>Sinfonía Urbana</h1>
+            <h1>{{ t.tituloApp }}</h1>
 
             <button class="btn-menu-movil" ng-click="menuMovilAbierto = !menuMovilAbierto">
                 ☰
@@ -29,27 +31,27 @@
 
             <nav ng-class="{ 'nav-abierto': menuMovilAbierto }">
                 <ul>
-                    <li><a href="./artistas.html">Artistas</a></li>
-                    <li><a href="./albumes.html">Álbumes</a></li>
-                    <li><a href="./canciones.html">Canciones</a></li>
-                    <li><a href="./top.html">Top global</a></li>
-                    <li><a href="./novedades.html" class="active">Novedades</a></li>
-                    <li><a href="./generos.html">Géneros</a></li>
+                    <li><a href="./artistas.html">{{ t.menuArtistas }}</a></li>
+                    <li><a href="./albumes.html">{{ t.menuAlbumes }}</a></li>
+                    <li><a href="./canciones.html">{{ t.menuCanciones }}</a></li>
+                    <li><a href="./top.html">{{ t.menuTop }}</a></li>
+                    <li><a href="./novedades.html" class="active">{{ t.menuNovedades }}</a></li>
+                    <li><a href="./generos.html">{{ t.menuGeneros }}</a></li>
                 </ul>
             </nav>
         </header>
 
         <main class="contenedor-principal">
             <section class="busqueda">
-                <input type="text" ng-model="busqueda" placeholder="¿Qué album quieres buscar?"
+                <input type="text" ng-model="busqueda" placeholder="{{ t.placeholderAlbumes }}"
                     ng-keypress="$event.which === 13 && buscarAlbumes()">
-                <button ng-click="buscarAlbumes()">Buscar</button>
+                <button ng-click="buscarAlbumes()">{{ t.buscar }}</button>
             </section>
 
             <section class="mensajes">
                 <p class="mensaje" ng-if="mensaje">{{ mensaje }}</p>
-                <h2 class="titulo-canciones">Novedades</h2>
-                <h4 class="titulo-canciones">Últimos lanzamientos</h4>
+                <h2 class="titulo-canciones">{{ t.tituloNovedades }}</h2>
+                <h4 class="titulo-canciones">{{ t.subtituloNovedades }}</h4>
                 <hr>
             </section>
 
@@ -70,11 +72,11 @@
                     <h3>{{ album.titulo }}</h3>
 
                     <p class="fecha-lanzamiento">
-                        Fue estrenado el {{ album.ano | date:'dd/MM/yyyy'}}
+                        {{ t.estreno }} {{ album.ano | date:'dd/MM/yyyy'}}
                     </p>
 
                     <button class="btn-artista" ng-click="$event.stopPropagation(); verArtista(album.idArtista)">
-                        Más sobre {{ album.nombreArtista }}
+                        {{ t.masSobre }} {{ album.nombreArtista }}
                     </button>
                 </div>
             </section>
@@ -87,13 +89,13 @@
         <footer>
             <div class="footer-content">
                 <div>
-                    <h3>Proyecto</h3>
+                    <h3>{{ t.proyecto }}</h3>
                     <hr>
-                    <p>Sinfonía Urbana</p>
+                    <p>{{ t.tituloApp }}</p>
                 </div>
 
                 <div>
-                    <h3>Contacto</h3>
+                    <h3>{{ t.contacto }}</h3>
                     <hr>
                     <p>yaiza5arias@gmail.com</p>
                     <p>cristinalopezdelapuente@gmail.com</p>

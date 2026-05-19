@@ -1,6 +1,10 @@
 var detalle_app = angular.module("miApp", []);
 
 detalle_app.controller("DetalleArtistaController", function ($scope, $http) {
+
+    $scope.idiomaActual = localStorage.getItem("idiomaActual") || "es";
+    $scope.t = I18N[$scope.idiomaActual];
+
     var URL_ARTISTAS = "http://localhost:8085/api/artistas";
     var URL_CANCIONES = "http://localhost:8085/api/canciones";
 

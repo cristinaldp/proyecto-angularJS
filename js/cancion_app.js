@@ -1,6 +1,10 @@
 var cancion_app = angular.module("miApp", []);
 
 cancion_app.controller("CancionController", function ($scope, $http) {
+
+    $scope.idiomaActual = localStorage.getItem("idiomaActual") || "es";
+    $scope.t = I18N[$scope.idiomaActual];
+
     var URL_API = "http://localhost:8085/api/canciones";
 
     $scope.canciones = [];

@@ -3,26 +3,26 @@ angular.module("miApp").component("loginWidget", {
         <div class="inicio-sesion">
 
             <button class="btn-acceso" ng-if="!$ctrl.usuarioActual" ng-click="$ctrl.abrirLogin()">
-                Acceso
+                {{ $ctrl.t.acceso }}
             </button>
 
             <button class="btn-perfil" ng-if="$ctrl.usuarioActual"  ng-click="$ctrl.toggleMenuPerfil()">
-                Perfil
+                {{ $ctrl.t.perfil }}
             </button>
 
             <button class="btn-logout" ng-if="$ctrl.usuarioActual" ng-click="$ctrl.cerrarSesion()">
-                Cerrar sesión
+                {{ $ctrl.t.cerrarSesion }}
             </button>
 
             <div class="menu-perfil" ng-if="$ctrl.menuPerfilVisible">
                 <p class="nombre-usuario">{{ $ctrl.usuarioActual.nickname }}</p>
 
                 <button ng-click="$ctrl.irPerfil()">
-                    Mi perfil
+                    {{ $ctrl.t.miPerfil }}
                 </button>
 
                 <button ng-click="$ctrl.irVistoRecientemente()">
-                    Visto recientemente
+                    {{ $ctrl.t.vistoRecientemente }}
                 </button>
             </div>
 
@@ -34,46 +34,46 @@ angular.module("miApp").component("loginWidget", {
 
                 <div ng-if="!$ctrl.modoRegistro">
 
-                    <h2>Iniciar sesión</h2>
+                    <h2>{{ $ctrl.t.iniciarSesion }}</h2>
 
-                    <label>Usuario o email</label>
-                    <input type="text" ng-model="$ctrl.loginData.identificador" placeholder="Introduce tu usuario o email">
+                    <label>{{ $ctrl.t.usuarioEmail }}</label>
+                    <input type="text" ng-model="$ctrl.loginData.identificador" placeholder="{{ $ctrl.t.usuarioEmail }}">
 
-                    <label>Contraseña</label>
-                    <input type="password" ng-model="$ctrl.loginData.contrasena" placeholder="Introduce tu contraseña" ng-keypress="$event.which === 13 && $ctrl.iniciarSesion()">
+                    <label>{{ $ctrl.t.contrasena }}</label>
+                    <input type="password" ng-model="$ctrl.loginData.contrasena" placeholder="{{ $ctrl.t.contrasena }}" ng-keypress="$event.which === 13 && $ctrl.iniciarSesion()">
 
                     <button class="btn-login" ng-click="$ctrl.iniciarSesion()">
-                        Entrar
+                        {{ $ctrl.t.entrar }}
                     </button>
 
                     <button class="btn-login btn-registro" ng-click="$ctrl.mostrarRegistro()">
-                        Registrarse
+                        {{ $ctrl.t.registrarse }}
                     </button>
 
                 </div>
 
                 <div ng-if="$ctrl.modoRegistro">
 
-                    <h2>Registrarse</h2>
+                    <h2>{{ $ctrl.t.registrarse }}</h2>
 
-                    <label>Email</label>
-                    <input type="email" ng-model="$ctrl.registroData.email" placeholder="Introduce tu email">
+                    <label>{{ $ctrl.t.email }}</label>
+                    <input type="email" ng-model="$ctrl.registroData.email" placeholder="email@gmail.com">
 
-                    <label>Nickname</label>
-                    <input type="text" ng-model="$ctrl.registroData.nickname" placeholder="Elige un nickname">
+                    <label>{{ $ctrl.t.nickname }}</label>
+                    <input type="text" ng-model="$ctrl.registroData.nickname" placeholder="{{ $ctrl.t.nickname }}">
 
-                    <label>Contraseña</label>
-                    <input type="password" ng-model="$ctrl.registroData.contrasena" placeholder="Introduce una contraseña" ng-keypress="$event.which === 13 && $ctrl.registrarse()">
+                    <label>{{ $ctrl.t.contrasena }}</label>
+                    <input type="password" ng-model="$ctrl.registroData.contrasena" placeholder="{{ $ctrl.t.placeholderContrasena }}" ng-keypress="$event.which === 13 && $ctrl.registrarse()">
 
-                    <label>Repetir contraseña</label>
-                    <input type="password" ng-model="$ctrl.registroData.repetirContrasena" placeholder="Vuelve a escribir la contraseña" ng-keypress="$event.which === 13 && $ctrl.registrarse()">
+                    <label>{{ $ctrl.t.repetirContrasena }}</label>
+                    <input type="password" ng-model="$ctrl.registroData.repetirContrasena" placeholder="{{ $ctrl.t.placeholderContrasena }}" ng-keypress="$event.which === 13 && $ctrl.registrarse()">
 
                     <button class="btn-login" ng-click="$ctrl.registrarse()">
-                        Crear cuenta
+                        {{ $ctrl.t.crearCuenta }}
                     </button>
 
                     <button class="btn-login btn-registro" ng-click="$ctrl.mostrarLogin()">
-                        Volver al login
+                        {{ $ctrl.t.volverLogin }}
                     </button>
 
                 </div>
@@ -84,6 +84,9 @@ angular.module("miApp").component("loginWidget", {
 
     controller: function ($http) {
         var ctrl = this;
+
+        ctrl.idiomaActual = localStorage.getItem("idiomaActual") || "es";
+        ctrl.t = I18N[ctrl.idiomaActual];
 
         ctrl.loginVisible = false;
         ctrl.menuPerfilVisible = false;
@@ -195,6 +198,10 @@ angular.module("miApp").component("loginWidget", {
                         alert("No se pudo registrar el usuario.");
                     }
                 });
+        };
+
+        ctrl.irPerfil = function () {
+            window.location.href = "perfil.html";
         };
 
         ctrl.cerrarSesion = function () {

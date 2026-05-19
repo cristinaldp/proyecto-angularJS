@@ -587,6 +587,72 @@ footer {
     display: none;
 }
 
+.perfil-panel {
+    max-width: 650px;
+    margin: 50px auto;
+    padding: 32px;
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: 18px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    text-align: center;
+}
+
+.perfil-panel h2 {
+    margin-bottom: 12px;
+}
+
+.descripcion-perfil {
+    margin-bottom: 28px;
+    color: #555;
+}
+
+.bloque-preferencias {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.campo-preferencia {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: left;
+}
+
+.campo-preferencia label {
+    font-weight: bold;
+}
+
+.campo-preferencia select {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.btn-guardar-preferencias {
+    padding: 12px 18px;
+    border: none;
+    border-radius: 10px;
+    background: #0b1320;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-guardar-preferencias:hover {
+    opacity: 0.9;
+}
+
+.mensaje-exito {
+    color: #2e7d32;
+    font-weight: bold;
+}
+
+.mensaje-error {
+    color: #c62828;
+    font-weight: bold;
+}
+
 @media (max-width: 690px) {
     .auth-box {
         position: absolute;

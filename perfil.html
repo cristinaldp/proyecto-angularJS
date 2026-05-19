@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es" ng-app="miApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi perfil - Sinfonía Urbana</title>
+
+    <link rel="stylesheet" href="css/styles.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+    <script src="js/i18n.js"></script>
+    <script src="js/perfil_app.js"></script>
+    <script src="js/login_reutilizable.js"></script>
+    
+</head>
+
+<body ng-controller="PerfilController">
+
+    <login-widget></login-widget>
+
+    <div class="layout-pagina">
+
+        <header>
+            <h1>{{ t.tituloApp }}</h1>
+
+            <button class="btn-menu-movil"
+                    ng-click="menuMovilAbierto = !menuMovilAbierto">
+                ☰
+            </button>
+
+            <nav ng-class="{ 'nav-abierto': menuMovilAbierto }">
+                <ul>
+                    <li><a href="./artistas.html">{{ t.menuArtistas }}</a></li>
+                    <li><a href="./albumes.html">{{ t.menuAlbumes }}</a></li>
+                    <li><a href="./canciones.html">{{ t.menuCanciones }}</a></li>
+                    <li><a href="./top.html">{{ t.menuTop }}</a></li>
+                    <li><a href="./novedades.html">{{ t.menuNovedades }}</a></li>
+                    <li><a href="./generos.html">{{ t.menuGeneros }}</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="contenedor-principal">
+
+            <section class="perfil-panel">
+
+                <h2>Mi perfil</h2>
+
+                <p class="descripcion-perfil">
+                    Desde esta sección puedes modificar tus preferencias de usuario.
+                </p>
+
+                <div class="bloque-preferencias">
+
+                    <h3>Preferencias</h3>
+
+                    <div class="campo-preferencia">
+                        <label for="idioma">Idioma de la aplicación</label>
+
+                        <select id="idioma"
+                                ng-model="preferencias.idioma">
+                            <option value="es">Español</option>
+                            <option value="en">English</option>
+                        </select>
+                    </div>
+
+                    <button class="btn-guardar-preferencias"
+                            ng-click="guardarPreferencias()">
+                        Guardar cambios
+                    </button>
+
+                    <p class="mensaje-exito" ng-if="mensajeExito">
+                        {{ mensajeExito }}
+                    </p>
+
+                    <p class="mensaje-error" ng-if="mensajeError">
+                        {{ mensajeError }}
+                    </p>
+
+                </div>
+
+            </section>
+
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <div>
+                    <h3>{{ t.proyecto }}</h3>
+                    <hr>
+                    <p>{{ t.tituloApp }}</p>
+                </div>
+
+                <div>
+                    <h3>{{ t.contacto }}</h3>
+                    <hr>
+                    <p>yaiza5arias@gmail.com</p>
+                    <p>cristinalopezdelapuente@gmail.com</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+</body>
+</html>

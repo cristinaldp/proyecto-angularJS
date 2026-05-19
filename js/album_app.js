@@ -1,6 +1,10 @@
 var album_app = angular.module("miApp", []);
 
 album_app.controller("AlbumController", function ($scope, $http) {
+
+    $scope.idiomaActual = localStorage.getItem("idiomaActual") || "es";
+    $scope.t = I18N[$scope.idiomaActual];
+
     var URL_ALBUMES = "http://localhost:8085/api/albumes";
 
     $scope.albumes = [];
@@ -122,58 +126,4 @@ album_app.controller("AlbumController", function ($scope, $http) {
         });
     };
 
-});
-
-album_app.controller("loginController", function ($scope, $http) {
-
-    $scope.loginVisible = false;
-    $scope.menuPerfilVisible = false;
-
-    $scope.loginData = {
-        identificador: "",
-        contrasena: ""
-    };
-
-    $scope.usuarioActual = JSON.parse(localStorage.getItem("usuarioActual"));
-
-    $scope.abrirLogin = function () {
-        $scope.loginVisible = true;
-    };
-
-    $scope.cerrarLogin = function () {
-        $scope.loginVisible = false;
-    };
-
-    $scope.iniciarSesion = function () {
-
-        $http.post("http://localhost:8085/api/usuarios/login", $scope.loginData)
-            .then(function (response) {
-
-                $scope.usuarioActual = response.data;
-
-                localStorage.setItem("usuarioActual", JSON.stringify(response.data));
-
-                $scope.loginVisible = false;
-
-                $scope.loginData = {
-                    identificador: "",
-                    contrasena: ""
-                };
-
-            })
-            .catch(function (error) {
-                console.error("Error de login:", error);
-                alert("Usuario o contraseña incorrectos.");
-            });
-    };
-
-    $scope.cerrarSesion = function () {
-        localStorage.removeItem("usuarioActual");
-        $scope.usuarioActual = null;
-        $scope.menuPerfilVisible = false;
-    };
-
-    $scope.toggleMenuPerfil = function () {
-        $scope.menuPerfilVisible = !$scope.menuPerfilVisible;
-    };
 });

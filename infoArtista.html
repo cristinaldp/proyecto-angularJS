@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="css/styles.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    
+    <script src="js/i18n.js"></script>
     <script src="js/detalle_app.js"></script>
     <script src="js/login_reutilizable.js"></script>
 
@@ -21,7 +23,7 @@
     <div ng-controller="DetalleArtistaController" ng-init="cargarDetalle()">
 
         <header>
-            <h1>Sinfonía Urbana</h1>
+            <h1>{{ t.tituloApp }}</h1>
 
             <button class="btn-menu-movil" ng-click="menuMovilAbierto = !menuMovilAbierto">
                 ☰
@@ -29,12 +31,12 @@
 
             <nav ng-class="{ 'nav-abierto': menuMovilAbierto }">
                 <ul>
-                    <li><a href="./artistas.html">Artistas</a></li>
-                    <li><a href="./albumes.html">Álbumes</a></li>
-                    <li><a href="./canciones.html">Canciones</a></li>
-                    <li><a href="./top.html">Top global</a></li>
-                    <li><a href="./novedades.html">Novedades</a></li>
-                    <li><a href="./generos.html">Géneros</a></li>
+                    <li><a href="./artistas.html">{{ t.menuArtistas }}</a></li>
+                    <li><a href="./albumes.html">{{ t.menuAlbumes }}</a></li>
+                    <li><a href="./canciones.html">{{ t.menuCanciones }}</a></li>
+                    <li><a href="./top.html">{{ t.menuTop }}</a></li>
+                    <li><a href="./novedades.html">{{ t.menuNovedades }}</a></li>
+                    <li><a href="./generos.html">{{ t.menuGeneros }}</a></li>
                 </ul>
             </nav>
         </header>
