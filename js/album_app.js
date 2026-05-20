@@ -5,6 +5,17 @@ album_app.controller("AlbumController", function ($scope, $http) {
     $scope.idiomaActual = localStorage.getItem("idiomaActual") || "es";
     $scope.t = I18N[$scope.idiomaActual];
 
+    var temaActual = localStorage.getItem("temaActual") || "claro";
+
+    if (temaActual === "claro") {
+        document.body.classList.add("tema-claro");
+        document.body.classList.remove("tema-oscuro");
+    } else {
+        document.body.classList.add("tema-oscuro");
+        document.body.classList.remove("tema-claro");
+    }
+
+
     var URL_ALBUMES = "http://localhost:8085/api/albumes";
 
     $scope.albumes = [];

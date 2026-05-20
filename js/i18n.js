@@ -34,7 +34,14 @@ var I18N = {
         idiomaApp: "Idioma de la aplicación",
         vistoRecientemente: "Visto recientemente",
         guardar: "Guardar cambios",
+
         mensajePreferenciasGuardadas: "Preferencias guardadas correctamente",
+        noSePudieronCargarPreferencias:"No se pudieron cargar las preferencias",
+        noSePudieronGuardarPreferencias: "No se pudieron guardar las preferencias",
+        temaAplicacion: "Tema de la aplicación",
+        temaOscuro: "Oscuro",
+        temaClaro: "Claro",
+
 
         iniciarSesion: "Iniciar sesión",
         usuarioEmail: "Usuario o email",
@@ -103,7 +110,13 @@ var I18N = {
         idiomaApp: "App Language",
         vistoRecientemente: "Recently viewed",
         guardar: "Save settings",
+
         mensajePreferenciasGuardadas: "Settings saved successfully",
+        noSePudieronCargarPreferencias:"Settings could not be loaded",
+        noSePudieronGuardarPreferencias: "Settings could not be saved",
+        temaAplicacion: "App Color Theme",
+        temaOscuro: "Dark",
+        temaClaro: "Light",
 
         iniciarSesion: "Sign in",
         usuarioEmail: "Username or email",

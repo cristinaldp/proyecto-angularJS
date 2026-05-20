@@ -1,6 +1,6 @@
 var app = angular.module("miApp", []);
 
-app.controller("PerfilController", function($scope, $http) {
+app.controller("PerfilController", function ($scope, $http) {
 
     $scope.idiomaActual = localStorage.getItem("idiomaActual") || "es";
     $scope.t = I18N[$scope.idiomaActual];
@@ -8,7 +8,8 @@ app.controller("PerfilController", function($scope, $http) {
     $scope.usuarioActual = JSON.parse(localStorage.getItem("usuarioActual"));
 
     $scope.preferencias = {
-        idioma: $scope.idiomaActual
+        idioma: $scope.idiomaActual,
+        tema: localStorage.getItem("temaActual") || "claro"
     };
 
     $scope.mensajeExito = "";
@@ -23,16 +24,22 @@ app.controller("PerfilController", function($scope, $http) {
     function cargarPreferencias() {
 
         $http.get("http://localhost:8085/api/preferencias/usuario/" + $scope.usuarioActual.id)
-            .then(function(response) {
+            .then(function (response) {
                 $scope.preferencias.idioma = response.data.idioma || "es";
+                $scope.preferencias.tema = response.data.tema || "claro";
+
+                localStorage.setItem("idiomaActual", $scope.preferencias.idioma);
+                localStorage.setItem("temaActual", $scope.preferencias.tema);
+
+                aplicarTema($scope.preferencias.tema);
             })
-            .catch(function(error) {
+            .catch(function (error) {
                 console.error("Error al cargar preferencias:", error);
-                $scope.mensajeError = "No se pudieron cargar tus preferencias.";
+                $scope.mensajeError = $scope.t.noSePudieronCargarPreferencias;
             });
     }
 
-    $scope.guardarPreferencias = function() {
+    $scope.guardarPreferencias = function () {
 
         $scope.mensajeExito = "";
         $scope.mensajeError = "";
@@ -42,25 +49,39 @@ app.controller("PerfilController", function($scope, $http) {
             return;
         }
 
-        $http.put("http://localhost:8085/api/preferencias/usuario/" + $scope.usuarioActual.id + "/idioma", {
-            idioma: $scope.preferencias.idioma
+        $http.put("http://localhost:8085/api/preferencias/usuario/" + $scope.usuarioActual.id, {
+            idioma: $scope.preferencias.idioma,
+            tema: $scope.preferencias.tema
         })
-        .then(function() {
+            .then(function (response) {
 
-            localStorage.setItem("idiomaActual", $scope.preferencias.idioma);
+                localStorage.setItem("idiomaActual", $scope.preferencias.idioma);
+                localStorage.setItem("temaActual", $scope.preferencias.tema);
 
-            $scope.idiomaActual = $scope.preferencias.idioma;
-            $scope.t = I18N[$scope.idiomaActual];
+                $scope.idiomaActual = $scope.preferencias.idioma;
+                $scope.t = I18N[$scope.idiomaActual];
 
-            $scope.mensajeExito = $scope.t.mensajePreferenciasGuardadas;
+                aplicarTema($scope.preferencias.tema);
 
-            setTimeout(function() {
-                window.location.reload();
-            }, 700);
-        })
-        .catch(function(error) {
-            console.error("Error al guardar preferencias:", error);
-            $scope.mensajeError = "No se pudieron guardar las preferencias.";
-        });
+                $scope.mensajeExito = $scope.t.mensajePreferenciasGuardadas;
+
+                setTimeout(function () {
+                    window.location.reload();
+                }, 1000);
+            })
+            .catch(function (error) {
+                console.error("Error al guardar preferencias:", error);
+                $scope.mensajeError = $scope.t.noSePudieronGuardarPreferencias;
+            });
     };
 });
+
+function aplicarTema(tema) {
+    if (tema === "oscuro") {
+        document.body.classList.add("tema-oscuro");
+        document.body.classList.remove("tema-claro");
+    } else {
+        document.body.classList.add("tema-claro");
+        document.body.classList.remove("tema-oscuro");
+    }
+}

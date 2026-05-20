@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es" ng-app="miApp">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,8 +24,7 @@
         <header>
             <h1>{{ t.tituloApp }}</h1>
 
-            <button class="btn-menu-movil"
-                    ng-click="menuMovilAbierto = !menuMovilAbierto">
+            <button class="btn-menu-movil" ng-click="menuMovilAbierto = !menuMovilAbierto">
                 ☰
             </button>
 
@@ -57,10 +57,18 @@
                     <div class="campo-preferencia">
                         <label for="idioma">{{ t.idiomaApp }}</label>
 
-                        <select id="idioma"
-                                ng-model="preferencias.idioma">
+                        <select id="idioma" ng-model="preferencias.idioma">
                             <option value="es">Español</option>
                             <option value="en">English</option>
+                        </select>
+                    </div>
+
+                    <div class="campo-preferencia">
+                        <label>{{ t.temaAplicacion }}</label>
+
+                        <select ng-model="preferencias.tema">
+                            <option value="oscuro">{{ t.temaOscuro }}</option>
+                            <option value="claro">{{ t.temaClaro }}</option>
                         </select>
                     </div>
 
@@ -102,4 +110,5 @@
     </div>
 
 </body>
+
 </html>
