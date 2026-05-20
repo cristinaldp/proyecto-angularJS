@@ -2,6 +2,7 @@
 <html lang="es" ng-app="miApp">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi perfil - Sinfonía Urbana</title>
 
     <link rel="stylesheet" href="css/styles.css">
@@ -11,7 +12,6 @@
     <script src="js/i18n.js"></script>
     <script src="js/perfil_app.js"></script>
     <script src="js/login_reutilizable.js"></script>
-    
 </head>
 
 <body ng-controller="PerfilController">
@@ -44,18 +44,18 @@
 
             <section class="perfil-panel">
 
-                <h2>Mi perfil</h2>
+                <h2>{{ t.miPerfil}}</h2>
 
                 <p class="descripcion-perfil">
-                    Desde esta sección puedes modificar tus preferencias de usuario.
+                    {{ t.textoPerfil }}
                 </p>
 
                 <div class="bloque-preferencias">
 
-                    <h3>Preferencias</h3>
+                    <h3>{{ t.preferencias }}</h3>
 
                     <div class="campo-preferencia">
-                        <label for="idioma">Idioma de la aplicación</label>
+                        <label for="idioma">{{ t.idiomaApp }}</label>
 
                         <select id="idioma"
                                 ng-model="preferencias.idioma">
@@ -64,9 +64,8 @@
                         </select>
                     </div>
 
-                    <button class="btn-guardar-preferencias"
-                            ng-click="guardarPreferencias()">
-                        Guardar cambios
+                    <button class="btn-guardar-preferencias" ng-click="guardarPreferencias()">
+                        {{ t.guardar }}
                     </button>
 
                     <p class="mensaje-exito" ng-if="mensajeExito">

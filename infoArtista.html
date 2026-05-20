@@ -61,14 +61,14 @@
                 <div class="detalle-info">
                     <h2>{{ artista.nombre }}</h2>
 
-                    <p><strong>País:</strong> {{ artista.pais }}</p>
-                    <p><strong>Edad:</strong> {{ artista.edad }}</p>
-                    <p><strong>Género:</strong> {{ artista.genero }}</p>
-                    <p><strong>Productor:</strong> {{ artista.productor }}</p>
-                    <p><strong>Oyentes mensuales:</strong> {{ artista.oyentesMensuales }}</p>
+                    <p><strong>{{ t.pais }}</strong> {{ artista.pais }}</p>
+                    <p><strong>{{ t.edad }}</strong> {{ artista.edad }}</p>
+                    <p><strong>{{ t.genero }}</strong> {{ artista.genero }}</p>
+                    <p><strong>{{ t.productor }}</strong> {{ artista.productor }}</p>
+                    <p><strong>{{ t.oyentes }}</strong> {{ artista.oyentesMensuales }}</p>
 
                     <div class="biografia">
-                        <h3>Biografía</h3>
+                        <h3>{{ t.biografia }}</h3>
                         <p>{{ artista.biografia }}</p>
                     </div>
                 </div>

@@ -667,6 +667,58 @@ footer {
         padding-bottom: 28px;
         padding-top: 85px;
     }
+
+    .contenedor-principal {
+        padding: 24px 14px;
+    }
+
+    .perfil-panel {
+        width: 100%;
+        max-width: none;
+        margin: 24px auto;
+        padding: 24px 18px;
+        border-radius: 16px;
+        box-sizing: border-box;
+    }
+
+    .perfil-panel h2 {
+        font-size: 26px;
+        margin-bottom: 18px;
+    }
+
+    .descripcion-perfil {
+        font-size: 15px;
+        line-height: 1.5;
+        margin-bottom: 28px;
+    }
+
+    .bloque-preferencias h3 {
+        font-size: 22px;
+        margin-bottom: 18px;
+    }
+
+    .campo-preferencia label {
+        font-size: 16px;
+    }
+
+    .campo-preferencia select {
+        width: 100%;
+        font-size: 16px;
+        padding: 12px;
+        box-sizing: border-box;
+    }
+
+    .btn-guardar-preferencias {
+        width: 100%;
+        font-size: 16px;
+        padding: 14px 18px;
+    }
+
+    .mensaje-exito,
+    .mensaje-error {
+        font-size: 16px;
+        text-align: center;
+    }
 }
 
 @media (max-width: 900px) {

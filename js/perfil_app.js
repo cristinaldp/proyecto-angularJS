@@ -52,7 +52,7 @@ app.controller("PerfilController", function($scope, $http) {
             $scope.idiomaActual = $scope.preferencias.idioma;
             $scope.t = I18N[$scope.idiomaActual];
 
-            $scope.mensajeExito = "Preferencias guardadas correctamente.";
+            $scope.mensajeExito = $scope.t.mensajePreferenciasGuardadas;
 
             setTimeout(function() {
                 window.location.reload();
